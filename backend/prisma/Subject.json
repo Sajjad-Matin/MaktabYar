@@ -1,0 +1,102 @@
+[
+  {
+    "id": "0a3683da-ad1a-45a4-81b8-06d5cb1cc7a1",
+    "name": "Holy Quran",
+    "createdAt": "2026-08-12 02:57:00.387"
+  },
+  {
+    "id": "146a4e2a-e0a4-4838-a85b-6354c1ceeee8",
+    "name": "Mathmatics",
+    "createdAt": "2026-08-12 02:53:44.941"
+  },
+  {
+    "id": "1ee76f18-11e0-46b4-8558-50da35b0ea8d",
+    "name": "Chemistry",
+    "createdAt": "2026-08-12 02:58:16.825"
+  },
+  {
+    "id": "3060d9a2-a9b5-4670-a3ae-14647c911117",
+    "name": "Dari",
+    "createdAt": "2026-08-12 02:56:54.244"
+  },
+  {
+    "id": "37723161-b185-4a3f-879f-84fd66ae95dd",
+    "name": "Computer",
+    "createdAt": "2026-08-12 02:58:42.101"
+  },
+  {
+    "id": "38a0af44-1812-4ad5-b6ec-3b564d43010b",
+    "name": "Geography",
+    "createdAt": "2026-08-12 05:58:45.314"
+  },
+  {
+    "id": "46938dbc-b4a4-4cce-b5ba-634cb325a3f3",
+    "name": "Tafsir",
+    "createdAt": "2026-08-12 02:59:01.206"
+  },
+  {
+    "id": "46c081d8-bb2f-4cdd-b5f5-0e8f2a7e7c86",
+    "name": "Skills",
+    "createdAt": "2026-08-12 02:57:43.719"
+  },
+  {
+    "id": "5e91d35f-a1cd-4327-9f0e-bd36887650eb",
+    "name": "Painting",
+    "createdAt": "2026-08-12 02:56:41.742"
+  },
+  {
+    "id": "68e970c6-6040-44a7-9f26-8d7a484ce14e",
+    "name": "Religious Studies",
+    "createdAt": "2026-08-12 02:56:01.338"
+  },
+  {
+    "id": "6e87ff4b-e370-4539-a7d8-27b096eead61",
+    "name": "Social Studies",
+    "createdAt": "2026-08-12 02:56:33.877"
+  },
+  {
+    "id": "6ffb6ba0-778f-4d75-84e1-dbbe62fe7cad",
+    "name": "Pashto",
+    "createdAt": "2026-08-12 02:54:26.792"
+  },
+  {
+    "id": "706833da-17ef-445f-aea0-76307dbf5bf6",
+    "name": "Geology",
+    "createdAt": "2026-08-12 02:53:53.396"
+  },
+  {
+    "id": "89cd5dde-922c-4207-a74d-4d860044276e",
+    "name": "Physics",
+    "createdAt": "2026-08-12 02:58:10.827"
+  },
+  {
+    "id": "9f42afb6-c2af-453a-8ba8-f5f1d227d354",
+    "name": "Arabic",
+    "createdAt": "2026-08-12 02:57:53.634"
+  },
+  {
+    "id": "a161b4da-b564-4671-be81-0d04e529e0c2",
+    "name": "English",
+    "createdAt": "2026-08-12 02:57:23.086"
+  },
+  {
+    "id": "ae7e30a2-4a87-4877-84d7-9e0a059605cf",
+    "name": "Biology",
+    "createdAt": "2026-08-12 02:54:00.012"
+  },
+  {
+    "id": "b30cb288-eed8-4634-b29f-491e97282839",
+    "name": "Writing",
+    "createdAt": "2026-08-12 02:56:49.119"
+  },
+  {
+    "id": "c054f8ce-7607-43ea-8469-dfdb5927a199",
+    "name": "History",
+    "createdAt": "2026-08-12 02:54:16.337"
+  },
+  {
+    "id": "d374642d-bd9d-4626-b63a-40d4cbe0b331",
+    "name": "Science",
+    "createdAt": "2026-08-12 02:57:15.697"
+  }
+]

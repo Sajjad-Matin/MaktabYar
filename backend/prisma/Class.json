@@ -1,0 +1,27 @@
+[
+  {
+    "id": "5bc0575a-df1a-4a3a-919e-5f697999d242",
+    "name": "Grade 6th",
+    "createdAt": "2026-08-12 02:51:16.698"
+  },
+  {
+    "id": "5e2c3ef4-b698-4f92-bff1-5c8e869a8e4d",
+    "name": "Grade 9th",
+    "createdAt": "2026-08-12 02:52:32.226"
+  },
+  {
+    "id": "c35739a8-c9c4-4f2d-8823-8b44efc8a349",
+    "name": "Grade 8th",
+    "createdAt": "2026-08-12 02:52:22.357"
+  },
+  {
+    "id": "c658e26e-2afd-42c8-922b-e56d97faf940",
+    "name": "Grade 10th",
+    "createdAt": "2026-08-12 02:52:38.209"
+  },
+  {
+    "id": "f6c6cf77-01d5-4f08-9b60-50a9bed02523",
+    "name": "Grade 7th",
+    "createdAt": "2026-08-12 02:52:12.561"
+  }
+]

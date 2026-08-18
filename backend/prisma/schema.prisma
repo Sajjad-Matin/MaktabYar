@@ -1,0 +1,228 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Class {
+  id        String   @id @default(uuid())
+  name      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  teacherSubjects TeacherSubjectClass[]
+  timetable       Timetable[]
+  history         TimetableHistory[]
+  user            User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([name, userId])
+}
+
+model Teacher {
+  id        String   @id @default(uuid())
+  name      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  subjects     TeacherSubject[]
+  availability TeacherAvailability[]
+  user         User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([name, userId])
+}
+
+model Subject {
+  id        String           @id @default(uuid())
+  name      String
+  userId    String
+  createdAt DateTime         @default(now())
+  teachers  TeacherSubject[]
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([name, userId])
+}
+
+model TeacherSubject {
+  id             String   @id @default(uuid())
+  teacherId      String
+  subjectId      String
+  periodsPerWeek Int
+  createdAt      DateTime @default(now())
+
+  teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  classes   TeacherSubjectClass[]
+  timetable Timetable[]
+
+  @@index([teacherId])
+  @@index([subjectId])
+  @@map("teacher_subjects")
+}
+
+model TeacherSubjectClass {
+  id               String   @id @default(uuid())
+  teacherSubjectId String
+  classId          String
+  createdAt        DateTime @default(now())
+
+  teacherSubject TeacherSubject @relation(fields: [teacherSubjectId], references: [id], onDelete: Cascade)
+  class          Class          @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherSubjectId, classId])
+}
+
+model Day {
+  id        String @id @default(uuid())
+  name      String
+  userId    String
+  timeTable Timetable[]
+  availability TeacherAvailability[]
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([name, userId])
+}
+
+model Period {
+  id         Int       @id @default(autoincrement())
+  number     Int
+  userId     String
+
+  timetable    Timetable[]
+  availability TeacherAvailability[]
+  user         User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([number, userId])
+}
+
+model Timetable {
+  id               String   @id @default(uuid())
+  classId          String
+  teacherSubjectId String
+  dayId            String
+  periodId         Int
+  createdAt        DateTime @default(now())
+
+  class          Class          @relation(fields: [classId], references: [id], onDelete: Cascade)
+  teacherSubject TeacherSubject @relation(fields: [teacherSubjectId], references: [id], onDelete: Cascade)
+  day            Day            @relation(fields: [dayId], references: [id])
+  period         Period         @relation(fields: [periodId], references: [id])
+
+  @@unique([classId, dayId, periodId])
+}
+
+model TimetableHistory {
+  id          String   @id @default(uuid())
+  classId     String
+  version     Int
+  data        Json
+  generatedAt DateTime @default(now())
+  userId      String
+
+  class Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([classId, version])
+  @@index([classId])
+  @@index([userId])
+}
+
+model TimetableConfig {
+  id            String   @id @default(uuid())
+  daysPerWeek   Int      @default(6)
+  periodsPerDay Int      @default(6)
+  userId        String
+  updatedAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
+model TeacherAvailability {
+  id          String   @id @default(uuid())
+  teacherId   String
+  dayId       String
+  periodId    Int
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  day     Day     @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  period  Period  @relation(fields: [periodId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, dayId, periodId])
+}
+
+enum Plan {
+  BASIC
+  STANDARD
+  PREMIUM
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum PurchaseRequestStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id                   String   @id @default(uuid())
+  email                String   @unique
+  password             String
+  schoolName           String?
+  phone                String?
+  plan                 Plan     @default(BASIC)
+  role                 UserRole @default(USER)
+  packageName          String   @default("Trial")
+  generationLimit      Int      @default(1)
+  remainingGenerations Int      @default(1)
+  packageActivatedAt   DateTime?
+  packageExpiresAt     DateTime?
+  createdAt            DateTime @default(now())
+
+  classes              Class[]
+  teachers             Teacher[]
+  subjects             Subject[]
+  days                 Day[]
+  periods              Period[]
+  timetableConfig      TimetableConfig[]
+  purchaseRequests     PurchaseRequest[]
+  timetableHistory     TimetableHistory[]
+}
+
+model Package {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  description   String
+  price         Int
+  features      String[]
+  generations   Int      @default(1)
+  validityDays  Int      @default(7)
+  unlimited     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  purchaseRequests PurchaseRequest[]
+}
+
+model PurchaseRequest {
+  id            String               @id @default(uuid())
+  userId        String?
+  packageId     String?
+  packageName   String
+  price         Int
+  schoolName    String?
+  phone         String?
+  paymentMethod String?
+  status        PurchaseRequestStatus @default(PENDING)
+  createdAt     DateTime             @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  package Package? @relation(fields: [packageId], references: [id], onDelete: SetNull)
+}
