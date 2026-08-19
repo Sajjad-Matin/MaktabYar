@@ -1,5 +1,5 @@
 const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ||
+  process.env.BACKEND_API?.replace(/\/$/, "") ||
   "http://localhost:5000/api";
 
 export async function apiFetch<T>(
