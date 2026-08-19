@@ -3,7 +3,7 @@ import prisma from "../prisma";
 
 export const createPeriod = async (req: Request, res: Response) => {
   try {
-    const { number, start_time, end_time } = req.body;
+    const { number } = req.body;
 
     if (!number) {
       return res.status(400).json({ message: "Period number is required" });
@@ -14,7 +14,12 @@ export const createPeriod = async (req: Request, res: Response) => {
     }
 
     const exists = await prisma.period.findUnique({
-      where: { number_userId: { number, userId: req.user.userId } },
+      where: {
+        number_userId: {
+          number,
+          userId: req.user.userId,
+        },
+      },
     });
 
     if (exists) {
@@ -24,15 +29,16 @@ export const createPeriod = async (req: Request, res: Response) => {
     const period = await prisma.period.create({
       data: {
         number,
-        start_time,
-        end_time,
         userId: req.user.userId,
       },
     });
 
     res.status(201).json(period);
   } catch (error) {
-    res.status(500).json({ message: "Failed to create period", error });
+    res.status(500).json({
+      message: "Failed to create period",
+      error,
+    });
   }
 };
 

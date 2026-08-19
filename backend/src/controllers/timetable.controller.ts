@@ -494,7 +494,7 @@ async function exportTeacherTimetableToExcel(
     worksheet.pageSetup.fitToPage = true;
     worksheet.pageSetup.fitToWidth = 1;
     worksheet.pageSetup.fitToHeight = 1;
-    worksheet.pageSetup.paperSize = worksheet.PAPERSIZE_A4;
+    worksheet.pageSetup.paperSize = 9;
     worksheet.headerFooter.oddHeader = `&C&B${teacher.name} — Teacher Timetable`;
   }
 
@@ -750,7 +750,7 @@ async function exportToExcel(
     worksheet.pageSetup.fitToPage = true;
     worksheet.pageSetup.fitToWidth = 1;
     worksheet.pageSetup.fitToHeight = 1;
-    worksheet.pageSetup.paperSize = worksheet.PAPERSIZE_A4;
+    worksheet.pageSetup.paperSize = 9;
     worksheet.headerFooter.oddHeader = `&C&B${cls.name} — TimeTable`;
   }
 

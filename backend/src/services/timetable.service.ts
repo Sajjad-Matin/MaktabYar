@@ -8,7 +8,7 @@ type Slot = {
 };
 
 type Task = {
-  id: string; 
+  id: string;
   classId: string;
   teacherSubjectId: string;
   teacherId: string;
@@ -47,17 +47,11 @@ const shuffle = <T>(items: T[]): T[] => {
 const slotKey = (dayId: string, periodId: number) =>
   key(dayId, String(periodId));
 
-const classSlotKey = (
-  classId: string,
-  dayId: string,
-  periodId: number,
-) => key(classId, slotKey(dayId, periodId));
+const classSlotKey = (classId: string, dayId: string, periodId: number) =>
+  key(classId, slotKey(dayId, periodId));
 
-const teacherSlotKey = (
-  teacherId: string,
-  dayId: string,
-  periodId: number,
-) => key(teacherId, slotKey(dayId, periodId));
+const teacherSlotKey = (teacherId: string, dayId: string, periodId: number) =>
+  key(teacherId, slotKey(dayId, periodId));
 
 const classSubjectDayKey = (
   classId: string,
@@ -90,13 +84,10 @@ const calculateInternalGaps = (
     const indices = placements
       .filter(
         (placement) =>
-          placement.classId === classId &&
-          placement.dayId === day.id,
+          placement.classId === classId && placement.dayId === day.id,
       )
       .map((placement) =>
-        periods.findIndex(
-          (period) => period.id === placement.periodId,
-        ),
+        periods.findIndex((period) => period.id === placement.periodId),
       )
       .filter((index) => index >= 0)
       .sort((a, b) => a - b);
@@ -147,8 +138,7 @@ const scoreCandidate = (
 
   const classDayPlacements = placements.filter(
     (placement) =>
-      placement.classId === task.classId &&
-      placement.dayId === slot.dayId,
+      placement.classId === task.classId && placement.dayId === slot.dayId,
   );
 
   const subjectDayAlreadyUsed = placements.some(
@@ -192,9 +182,7 @@ const scoreCandidate = (
    */
   const occupiedIndices = classDayPlacements
     .map((placement) =>
-      periods.findIndex(
-        (period) => period.id === placement.periodId,
-      ),
+      periods.findIndex((period) => period.id === placement.periodId),
     )
     .filter((index) => index >= 0);
 
@@ -240,16 +228,13 @@ const scoreCandidate = (
    */
   const teacherDayPlacements = placements.filter(
     (placement) =>
-      placement.teacherId === task.teacherId &&
-      placement.dayId === slot.dayId,
+      placement.teacherId === task.teacherId && placement.dayId === slot.dayId,
   );
 
   if (teacherDayPlacements.length > 0) {
     const teacherIndices = teacherDayPlacements
       .map((placement) =>
-        periods.findIndex(
-          (period) => period.id === placement.periodId,
-        ),
+        periods.findIndex((period) => period.id === placement.periodId),
       )
       .filter((index) => index >= 0);
 
@@ -284,25 +269,17 @@ const canPlaceTask = (
   subjectDayBusy: Set<string>,
 ) => {
   if (
-    unavailable.has(
-      teacherSlotKey(task.teacherId, slot.dayId, slot.periodId),
-    )
+    unavailable.has(teacherSlotKey(task.teacherId, slot.dayId, slot.periodId))
   ) {
     return false;
   }
 
-  if (
-    classBusy.has(
-      classSlotKey(task.classId, slot.dayId, slot.periodId),
-    )
-  ) {
+  if (classBusy.has(classSlotKey(task.classId, slot.dayId, slot.periodId))) {
     return false;
   }
 
   if (
-    teacherBusy.has(
-      teacherSlotKey(task.teacherId, slot.dayId, slot.periodId),
-    )
+    teacherBusy.has(teacherSlotKey(task.teacherId, slot.dayId, slot.periodId))
   ) {
     return false;
   }
@@ -314,11 +291,7 @@ const canPlaceTask = (
    */
   if (
     subjectDayBusy.has(
-      classSubjectDayKey(
-        task.classId,
-        task.subjectId,
-        slot.dayId,
-      ),
+      classSubjectDayKey(task.classId, task.subjectId, slot.dayId),
     )
   ) {
     return false;
@@ -356,17 +329,9 @@ const buildAttempt = (
    * Harder tasks go first.
    */
   const orderedTasks = shuffle(tasks).sort((a, b) => {
-    const aAvailable = getAvailableSlots(
-      a,
-      slots,
-      unavailable,
-    );
+    const aAvailable = getAvailableSlots(a, slots, unavailable);
 
-    const bAvailable = getAvailableSlots(
-      b,
-      slots,
-      unavailable,
-    );
+    const bAvailable = getAvailableSlots(b, slots, unavailable);
 
     /**
      * Fewer available slots = harder task = first.
@@ -404,28 +369,17 @@ const buildAttempt = (
       const scored = candidates
         .map((slot) => ({
           slot,
-          score: scoreCandidate(
-            placements,
-            task,
-            slot,
-            days,
-            periods,
-          ),
+          score: scoreCandidate(placements, task, slot, days, periods),
         }))
         .sort((a, b) => a.score - b.score);
 
       /**
        * Randomly choose from the best candidates.
        */
-      const shortlist = scored.slice(
-        0,
-        Math.min(5, scored.length),
-      );
+      const shortlist = scored.slice(0, Math.min(5, scored.length));
 
       const selected =
-        shortlist[
-          Math.floor(Math.random() * shortlist.length)
-        ].slot;
+        shortlist[Math.floor(Math.random() * shortlist.length)].slot;
 
       placements.push({
         ...task,
@@ -434,33 +388,18 @@ const buildAttempt = (
       });
 
       classBusy.add(
-        classSlotKey(
-          task.classId,
-          selected.dayId,
-          selected.periodId,
-        ),
+        classSlotKey(task.classId, selected.dayId, selected.periodId),
       );
 
       teacherBusy.add(
-        teacherSlotKey(
-          task.teacherId,
-          selected.dayId,
-          selected.periodId,
-        ),
+        teacherSlotKey(task.teacherId, selected.dayId, selected.periodId),
       );
 
       subjectDayBusy.add(
-        classSubjectDayKey(
-          task.classId,
-          task.subjectId,
-          selected.dayId,
-        ),
+        classSubjectDayKey(task.classId, task.subjectId, selected.dayId),
       );
 
-      scheduledCount.set(
-        task.id,
-        (scheduledCount.get(task.id) ?? 0) + 1,
-      );
+      scheduledCount.set(task.id, (scheduledCount.get(task.id) ?? 0) + 1);
 
       remaining--;
     }
@@ -480,19 +419,11 @@ const buildAttempt = (
   const classIds = [...new Set(tasks.map((task) => task.classId))];
 
   for (const classId of classIds) {
-    const classTasks = tasks.filter(
-      (task) => task.classId === classId,
-    );
+    const classTasks = tasks.filter((task) => task.classId === classId);
 
     const classSlots = slots.filter(
       (slot) =>
-        !classBusy.has(
-          classSlotKey(
-            classId,
-            slot.dayId,
-            slot.periodId,
-          ),
-        ),
+        !classBusy.has(classSlotKey(classId, slot.dayId, slot.periodId)),
     );
 
     for (const emptySlot of shuffle(classSlots)) {
@@ -525,15 +456,9 @@ const buildAttempt = (
         .map((task) => {
           const current = scheduledCount.get(task.id) ?? 0;
 
-          const deficit = Math.max(
-            0,
-            task.periodsPerWeek - current,
-          );
+          const deficit = Math.max(0, task.periodsPerWeek - current);
 
-          const excess = Math.max(
-            0,
-            current - task.periodsPerWeek,
-          );
+          const excess = Math.max(0, current - task.periodsPerWeek);
 
           let score = 0;
 
@@ -550,13 +475,7 @@ const buildAttempt = (
           /**
            * Use our normal placement scoring too.
            */
-          score += scoreCandidate(
-            placements,
-            task,
-            emptySlot,
-            days,
-            periods,
-          );
+          score += scoreCandidate(placements, task, emptySlot, days, periods);
 
           score += Math.random() * 10;
 
@@ -569,10 +488,7 @@ const buildAttempt = (
 
       const selectedTask =
         scoredCandidates[
-          Math.floor(
-            Math.random() *
-              Math.min(4, scoredCandidates.length),
-          )
+          Math.floor(Math.random() * Math.min(4, scoredCandidates.length))
         ].task;
 
       placements.push({
@@ -582,11 +498,7 @@ const buildAttempt = (
       });
 
       classBusy.add(
-        classSlotKey(
-          selectedTask.classId,
-          emptySlot.dayId,
-          emptySlot.periodId,
-        ),
+        classSlotKey(selectedTask.classId, emptySlot.dayId, emptySlot.periodId),
       );
 
       teacherBusy.add(
@@ -637,8 +549,7 @@ const buildAttempt = (
 
   const totalClassSlots = classIds.length * totalSlotsPerClass;
 
-  const freePeriods =
-    totalClassSlots - placements.length;
+  const freePeriods = totalClassSlots - placements.length;
 
   return {
     placements,
@@ -659,9 +570,7 @@ const scoreSchedule = (
   days: { id: string }[],
   periods: { id: number; number: number }[],
 ) => {
-  const classIds = [
-    ...new Set(tasks.map((task) => task.classId)),
-  ];
+  const classIds = [...new Set(tasks.map((task) => task.classId))];
 
   let score = 0;
 
@@ -719,9 +628,7 @@ const scoreSchedule = (
     );
 
     const uniqueDays = new Set(
-      subjectPlacements.map(
-        (placement) => placement.dayId,
-      ),
+      subjectPlacements.map((placement) => placement.dayId),
     ).size;
 
     const actual = subjectPlacements.length;
@@ -745,65 +652,55 @@ const scoreSchedule = (
 };
 
 export const generateTimetableForAllClasses = async (userId: string) => {
-  const [
-    days,
-    periods,
-    classes,
-    assignments,
-    availability,
-  ] = await Promise.all([
-    prisma.day.findMany({
-      where: { userId },
-      orderBy: { name: "asc" },
-    }),
+  const [days, periods, classes, assignments, availability] = await Promise.all(
+    [
+      prisma.day.findMany({
+        where: { userId },
+        orderBy: { name: "asc" },
+      }),
 
-    prisma.period.findMany({
-      where: { userId },
-      orderBy: { number: "asc" },
-    }),
+      prisma.period.findMany({
+        where: { userId },
+        orderBy: { number: "asc" },
+      }),
 
-    prisma.class.findMany({
-      where: { userId },
-      orderBy: { name: "asc" },
-    }),
+      prisma.class.findMany({
+        where: { userId },
+        orderBy: { name: "asc" },
+      }),
 
-    prisma.teacherSubjectClass.findMany({
-      where: {
-        class: { userId },
-        teacherSubject: {
-          teacher: { userId },
-          subject: { userId },
+      prisma.teacherSubjectClass.findMany({
+        where: {
+          class: { userId },
+          teacherSubject: {
+            teacher: { userId },
+            subject: { userId },
+          },
         },
-      },
-      include: {
-        teacherSubject: true,
-      },
-    }),
+        include: {
+          teacherSubject: true,
+        },
+      }),
 
-    prisma.teacherAvailability.findMany({
-      where: {
-        isAvailable: false,
-        teacher: { userId },
-      },
-    }),
-  ]);
+      prisma.teacherAvailability.findMany({
+        where: {
+          isAvailable: false,
+          teacher: { userId },
+        },
+      }),
+    ],
+  );
 
   if (days.length === 0) {
-    throw new Error(
-      "No school days are configured.",
-    );
+    throw new Error("No school days are configured.");
   }
 
   if (periods.length === 0) {
-    throw new Error(
-      "No periods are configured.",
-    );
+    throw new Error("No periods are configured.");
   }
 
   if (classes.length === 0) {
-    throw new Error(
-      "No classes are configured.",
-    );
+    throw new Error("No classes are configured.");
   }
 
   if (assignments.length === 0) {
@@ -813,40 +710,28 @@ export const generateTimetableForAllClasses = async (userId: string) => {
   }
 
   const tasks: Task[] = assignments
-    .filter(
-      (assignment) =>
-        assignment.teacherSubject.periodsPerWeek > 0,
-    )
+    .filter((assignment) => assignment.teacherSubject.periodsPerWeek > 0)
     .map((assignment) => ({
       id: assignment.id,
       classId: assignment.classId,
-      teacherSubjectId:
-        assignment.teacherSubjectId,
-      teacherId:
-        assignment.teacherSubject.teacherId,
-      subjectId:
-        assignment.teacherSubject.subjectId,
-      periodsPerWeek:
-        assignment.teacherSubject.periodsPerWeek,
+      teacherSubjectId: assignment.teacherSubjectId,
+      teacherId: assignment.teacherSubject.teacherId,
+      subjectId: assignment.teacherSubject.subjectId,
+      periodsPerWeek: assignment.teacherSubject.periodsPerWeek,
     }));
 
-  const slots: Slot[] = days.flatMap(
-    (day, dayIndex) =>
-      periods.map((period, periodIndex) => ({
-        dayId: day.id,
-        periodId: period.id,
-        dayIndex,
-        periodIndex,
-      })),
+  const slots: Slot[] = days.flatMap((day, dayIndex) =>
+    periods.map((period, periodIndex) => ({
+      dayId: day.id,
+      periodId: period.id,
+      dayIndex,
+      periodIndex,
+    })),
   );
 
   const unavailable = new Set(
     availability.map((item) =>
-      teacherSlotKey(
-        item.teacherId,
-        item.dayId,
-        item.periodId,
-      ),
+      teacherSlotKey(item.teacherId, item.dayId, item.periodId),
     ),
   );
 
@@ -855,27 +740,12 @@ export const generateTimetableForAllClasses = async (userId: string) => {
 
   let attemptsUsed = 0;
 
-  for (
-    let attempt = 0;
-    attempt < MAX_ATTEMPTS;
-    attempt++
-  ) {
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     attemptsUsed = attempt + 1;
 
-    const candidate = buildAttempt(
-      tasks,
-      slots,
-      unavailable,
-      days,
-      periods,
-    );
+    const candidate = buildAttempt(tasks, slots, unavailable, days, periods);
 
-    const score = scoreSchedule(
-      candidate,
-      tasks,
-      days,
-      periods,
-    );
+    const score = scoreSchedule(candidate, tasks, days, periods);
 
     if (score < bestScore) {
       bestScore = score;
@@ -888,10 +758,7 @@ export const generateTimetableForAllClasses = async (userId: string) => {
      * No free periods
      * No target shortfall
      */
-    if (
-      candidate.freePeriods === 0 &&
-      candidate.targetShortfall === 0
-    ) {
+    if (candidate.freePeriods === 0 && candidate.targetShortfall === 0) {
       /**
        * We can stop early because this is already a
        * complete valid schedule.
@@ -901,9 +768,7 @@ export const generateTimetableForAllClasses = async (userId: string) => {
   }
 
   if (!best) {
-    throw new Error(
-      "Unable to build a timetable.",
-    );
+    throw new Error("Unable to build a timetable.");
   }
 
   /**
@@ -967,33 +832,23 @@ export const generateTimetableForAllClasses = async (userId: string) => {
 
     if (best!.placements.length > 0) {
       await tx.timetable.createMany({
-        data: best!.placements.map(
-          (placement) => ({
-            classId: placement.classId,
-            teacherSubjectId:
-              placement.teacherSubjectId,
-            dayId: placement.dayId,
-            periodId: placement.periodId,
-          }),
-        ),
+        data: best!.placements.map((placement) => ({
+          classId: placement.classId,
+          teacherSubjectId: placement.teacherSubjectId,
+          dayId: placement.dayId,
+          periodId: placement.periodId,
+        })),
       });
     }
   });
 
-  const totalSlots =
-    classes.length * slots.length;
+  const totalSlots = classes.length * slots.length;
 
-  const scheduled =
-    best.placements.length;
+  const scheduled = best.placements.length;
 
-  const freePeriods =
-    totalSlots - scheduled;
+  const freePeriods = totalSlots - scheduled;
 
-  const requested = tasks.reduce(
-    (sum, task) =>
-      sum + task.periodsPerWeek,
-    0,
-  );
+  const requested = tasks.reduce((sum, task) => sum + task.periodsPerWeek, 0);
 
   return {
     classes: classes.length,
@@ -1008,28 +863,17 @@ export const generateTimetableForAllClasses = async (userId: string) => {
 
     unscheduled: best.targetShortfall,
 
-    targetShortfall:
-      best.targetShortfall,
+    targetShortfall: best.targetShortfall,
 
-    targetExcess:
-      best.targetExcess,
+    targetExcess: best.targetExcess,
 
-    freePeriodsInsideDailyBlocks:
-      classes.reduce(
-        (sum, cls) =>
-          sum +
-          calculateInternalGaps(
-            best!.placements,
-            cls.id,
-            days,
-            periods,
-          ),
-        0,
-      ),
+    freePeriodsInsideDailyBlocks: classes.reduce(
+      (sum, cls) =>
+        sum + calculateInternalGaps(best!.placements, cls.id, days, periods),
+      0,
+    ),
 
-    optimized:
-      freePeriods === 0 &&
-      best.targetShortfall === 0,
+    optimized: freePeriods === 0 && best.targetShortfall === 0,
 
     attempts: attemptsUsed,
   };
@@ -1048,46 +892,32 @@ export const createTimetableEntry = async (input: {
   periodId: number;
   userId: string;
 }) => {
-  const {
-    classId,
-    teacherId,
-    subjectId,
-    dayId,
-    periodId,
-    userId,
-  } = input;
+  const { classId, teacherId, subjectId, dayId, periodId, userId } = input;
 
-  const teacherSubject =
-    await prisma.teacherSubject.findFirst({
-      where: {
-        teacherId,
-        subjectId,
-        teacher: { userId },
-        subject: { userId },
-      },
-    });
+  const teacherSubject = await prisma.teacherSubject.findFirst({
+    where: {
+      teacherId,
+      subjectId,
+      teacher: { userId },
+      subject: { userId },
+    },
+  });
 
   if (!teacherSubject) {
-    throw new Error(
-      "This teacher is not assigned to this subject.",
-    );
+    throw new Error("This teacher is not assigned to this subject.");
   }
 
-  const classAssignment =
-    await prisma.teacherSubjectClass.findUnique({
-      where: {
-        teacherSubjectId_classId: {
-          teacherSubjectId:
-            teacherSubject.id,
-          classId,
-        },
+  const classAssignment = await prisma.teacherSubjectClass.findUnique({
+    where: {
+      teacherSubjectId_classId: {
+        teacherSubjectId: teacherSubject.id,
+        classId,
       },
-    });
+    },
+  });
 
   if (!classAssignment) {
-    throw new Error(
-      "This teacher/subject is not assigned to this class.",
-    );
+    throw new Error("This teacher/subject is not assigned to this class.");
   }
 
   const ownedClass = await prisma.class.findFirst({
@@ -1098,59 +928,50 @@ export const createTimetableEntry = async (input: {
     throw new Error("Class not found.");
   }
 
-  const unavailable =
-    await prisma.teacherAvailability.findUnique({
-      where: {
-        teacherId_dayId_periodId: {
-          teacherId,
-          dayId,
-          periodId,
-        },
+  const unavailable = await prisma.teacherAvailability.findUnique({
+    where: {
+      teacherId_dayId_periodId: {
+        teacherId,
+        dayId,
+        periodId,
       },
-    });
+    },
+  });
 
   if (unavailable?.isAvailable === false) {
-    throw new Error(
-      "The teacher is unavailable during this period.",
-    );
+    throw new Error("The teacher is unavailable during this period.");
   }
 
   /**
    * Class collision.
    */
-  const classBusy =
-    await prisma.timetable.findFirst({
-      where: {
-        classId,
-        dayId,
-        periodId,
-      },
-    });
+  const classBusy = await prisma.timetable.findFirst({
+    where: {
+      classId,
+      dayId,
+      periodId,
+    },
+  });
 
   if (classBusy) {
-    throw new Error(
-      "This class already has a lesson in that period.",
-    );
+    throw new Error("This class already has a lesson in that period.");
   }
 
   /**
    * Teacher collision.
    */
-  const teacherBusy =
-    await prisma.timetable.findFirst({
-      where: {
-        teacherSubject: {
-          teacherId,
-        },
-        dayId,
-        periodId,
+  const teacherBusy = await prisma.timetable.findFirst({
+    where: {
+      teacherSubject: {
+        teacherId,
       },
-    });
+      dayId,
+      periodId,
+    },
+  });
 
   if (teacherBusy) {
-    throw new Error(
-      "This teacher already has a lesson in that period.",
-    );
+    throw new Error("This teacher already has a lesson in that period.");
   }
 
   /**
@@ -1159,16 +980,15 @@ export const createTimetableEntry = async (input: {
    * Same subject cannot appear twice on the
    * same class/day.
    */
-  const sameSubjectSameDay =
-    await prisma.timetable.findFirst({
-      where: {
-        classId,
-        dayId,
-        teacherSubject: {
-          subjectId,
-        },
+  const sameSubjectSameDay = await prisma.timetable.findFirst({
+    where: {
+      classId,
+      dayId,
+      teacherSubject: {
+        subjectId,
       },
-    });
+    },
+  });
 
   if (sameSubjectSameDay) {
     throw new Error(
@@ -1179,8 +999,7 @@ export const createTimetableEntry = async (input: {
   return prisma.timetable.create({
     data: {
       classId,
-      teacherSubjectId:
-        teacherSubject.id,
+      teacherSubjectId: teacherSubject.id,
       dayId,
       periodId,
     },
@@ -1199,10 +1018,7 @@ export const createTimetableEntry = async (input: {
   });
 };
 
-export const deleteTimetableEntry = async (
-  id: string,
-  userId: string,
-) => {
+export const deleteTimetableEntry = async (id: string, userId: string) => {
   const entry = await prisma.timetable.findFirst({
     where: { id, class: { userId } },
   });
@@ -1213,9 +1029,6 @@ export const deleteTimetableEntry = async (
 
   return prisma.timetable.delete({ where: { id } });
 };
-
-
-
 
 // type RepairState = {
 //   entries: MutableEntry[];
@@ -1915,42 +1728,23 @@ type RepairState = {
 const REPAIR_MAX_DEPTH = 12;
 const REPAIR_MAX_BRANCHES = 10000;
 
-const cloneEntries = (
-  entries: MutableEntry[],
-): MutableEntry[] =>
+const cloneEntries = (entries: MutableEntry[]): MutableEntry[] =>
   entries.map((entry) => ({
     ...entry,
   }));
 
-const findEntry = (
-  entries: MutableEntry[],
-  id: string,
-) =>
-  entries.find(
-    (entry) => entry.id === id,
-  );
+const findEntry = (entries: MutableEntry[], id: string) =>
+  entries.find((entry) => entry.id === id);
 
-const samePosition = (
-  entry: MutableEntry,
-  dayId: string,
-  periodId: number,
-) =>
-  entry.dayId === dayId &&
-  entry.periodId === periodId;
+const samePosition = (entry: MutableEntry, dayId: string, periodId: number) =>
+  entry.dayId === dayId && entry.periodId === periodId;
 
 const isTeacherAvailable = (
   unavailable: Set<string>,
   teacherId: string,
   dayId: string,
   periodId: number,
-) =>
-  !unavailable.has(
-    teacherSlotKey(
-      teacherId,
-      dayId,
-      periodId,
-    ),
-  );
+) => !unavailable.has(teacherSlotKey(teacherId, dayId, periodId));
 
 /**
  * Checks whether an entry can use a particular
@@ -1973,14 +1767,7 @@ const canEntryUseSlot = (
   /**
    * Teacher unavailable.
    */
-  if (
-    !isTeacherAvailable(
-      unavailable,
-      entry.teacherId,
-      dayId,
-      periodId,
-    )
-  ) {
+  if (!isTeacherAvailable(unavailable, entry.teacherId, dayId, periodId)) {
     return false;
   }
 
@@ -1988,14 +1775,13 @@ const canEntryUseSlot = (
    * Teacher cannot teach two classes
    * at the same time.
    */
-  const teacherConflict =
-    entries.some(
-      (other) =>
-        other.id !== entry.id &&
-        other.teacherId === entry.teacherId &&
-        other.dayId === dayId &&
-        other.periodId === periodId,
-    );
+  const teacherConflict = entries.some(
+    (other) =>
+      other.id !== entry.id &&
+      other.teacherId === entry.teacherId &&
+      other.dayId === dayId &&
+      other.periodId === periodId,
+  );
 
   if (teacherConflict) {
     return false;
@@ -2005,14 +1791,13 @@ const canEntryUseSlot = (
    * Same subject cannot occur twice for
    * the same class on the same day.
    */
-  const subjectConflict =
-    entries.some(
-      (other) =>
-        other.id !== entry.id &&
-        other.classId === entry.classId &&
-        other.subjectId === entry.subjectId &&
-        other.dayId === dayId,
-    );
+  const subjectConflict = entries.some(
+    (other) =>
+      other.id !== entry.id &&
+      other.classId === entry.classId &&
+      other.subjectId === entry.subjectId &&
+      other.dayId === dayId,
+  );
 
   if (subjectConflict) {
     return false;
@@ -2071,12 +1856,9 @@ const flagCollisionGroup = (
     return;
   }
 
-  const keepIndex = list.findIndex((entry) =>
-    protectedIds.has(entry.id),
-  );
+  const keepIndex = list.findIndex((entry) => protectedIds.has(entry.id));
 
-  const indexToKeep =
-    keepIndex >= 0 ? keepIndex : 0;
+  const indexToKeep = keepIndex >= 0 ? keepIndex : 0;
 
   for (let i = 0; i < list.length; i++) {
     if (i === indexToKeep) {
@@ -2097,20 +1879,11 @@ const getConflicts = (
 ) => {
   const conflictIds = new Set<string>();
 
-  const classSlots = new Map<
-    string,
-    MutableEntry[]
-  >();
+  const classSlots = new Map<string, MutableEntry[]>();
 
-  const teacherSlots = new Map<
-    string,
-    MutableEntry[]
-  >();
+  const teacherSlots = new Map<string, MutableEntry[]>();
 
-  const subjectDays = new Map<
-    string,
-    MutableEntry[]
-  >();
+  const subjectDays = new Map<string, MutableEntry[]>();
 
   for (const entry of entries) {
     /**
@@ -2130,58 +1903,40 @@ const getConflicts = (
     /**
      * Class slot.
      */
-    const classKey = classSlotKey(
-      entry.classId,
-      entry.dayId,
-      entry.periodId,
-    );
+    const classKey = classSlotKey(entry.classId, entry.dayId, entry.periodId);
 
-    const classList =
-      classSlots.get(classKey) ?? [];
+    const classList = classSlots.get(classKey) ?? [];
 
     classList.push(entry);
-    classSlots.set(
-      classKey,
-      classList,
-    );
+    classSlots.set(classKey, classList);
 
     /**
      * Teacher slot.
      */
-    const teacherKey =
-      teacherSlotKey(
-        entry.teacherId,
-        entry.dayId,
-        entry.periodId,
-      );
+    const teacherKey = teacherSlotKey(
+      entry.teacherId,
+      entry.dayId,
+      entry.periodId,
+    );
 
-    const teacherList =
-      teacherSlots.get(teacherKey) ?? [];
+    const teacherList = teacherSlots.get(teacherKey) ?? [];
 
     teacherList.push(entry);
-    teacherSlots.set(
-      teacherKey,
-      teacherList,
-    );
+    teacherSlots.set(teacherKey, teacherList);
 
     /**
      * Subject/day.
      */
-    const subjectKey =
-      classSubjectDayKey(
-        entry.classId,
-        entry.subjectId,
-        entry.dayId,
+    const subjectKey = classSubjectDayKey(
+      entry.classId,
+      entry.subjectId,
+      entry.dayId,
     );
 
-    const subjectList =
-      subjectDays.get(subjectKey) ?? [];
+    const subjectList = subjectDays.get(subjectKey) ?? [];
 
     subjectList.push(entry);
-    subjectDays.set(
-      subjectKey,
-      subjectList,
-    );
+    subjectDays.set(subjectKey, subjectList);
   }
 
   /**
@@ -2191,22 +1946,14 @@ const getConflicts = (
    * first lesson, and repair the rest.
    */
   for (const list of classSlots.values()) {
-    flagCollisionGroup(
-      list,
-      protectedIds,
-      conflictIds,
-    );
+    flagCollisionGroup(list, protectedIds, conflictIds);
   }
 
   /**
    * Teacher collisions.
    */
   for (const list of teacherSlots.values()) {
-    flagCollisionGroup(
-      list,
-      protectedIds,
-      conflictIds,
-    );
+    flagCollisionGroup(list, protectedIds, conflictIds);
   }
 
   /**
@@ -2214,11 +1961,7 @@ const getConflicts = (
    * class/day.
    */
   for (const list of subjectDays.values()) {
-    flagCollisionGroup(
-      list,
-      protectedIds,
-      conflictIds,
-    );
+    flagCollisionGroup(list, protectedIds, conflictIds);
   }
 
   return [...conflictIds];
@@ -2241,17 +1984,11 @@ const scoreRepairPosition = (
 ) => {
   let score = 0;
 
-  const newPeriodIndex =
-    periods.findIndex(
-      (period) =>
-        period.id === periodId,
-    );
+  const newPeriodIndex = periods.findIndex((period) => period.id === periodId);
 
-  const oldPeriodIndex =
-    periods.findIndex(
-      (period) =>
-        period.id === entry.periodId,
-    );
+  const oldPeriodIndex = periods.findIndex(
+    (period) => period.id === entry.periodId,
+  );
 
   /**
    * Prefer keeping the same day.
@@ -2263,73 +2000,42 @@ const scoreRepairPosition = (
   /**
    * Prefer staying near the old period.
    */
-  if (
-    oldPeriodIndex >= 0 &&
-    newPeriodIndex >= 0
-  ) {
-    score +=
-      Math.abs(
-        oldPeriodIndex -
-          newPeriodIndex,
-      ) * 5;
+  if (oldPeriodIndex >= 0 && newPeriodIndex >= 0) {
+    score += Math.abs(oldPeriodIndex - newPeriodIndex) * 5;
   }
 
   /**
    * Prefer compact class schedules.
    */
-  const sameDayEntries =
-    entries.filter(
-      (other) =>
-        other.id !== entry.id &&
-        other.classId === entry.classId &&
-        other.dayId === dayId,
-    );
+  const sameDayEntries = entries.filter(
+    (other) =>
+      other.id !== entry.id &&
+      other.classId === entry.classId &&
+      other.dayId === dayId,
+  );
 
-  if (
-    sameDayEntries.length > 0 &&
-    newPeriodIndex >= 0
-  ) {
-    const indices =
-      sameDayEntries
-        .map((other) =>
-          periods.findIndex(
-            (period) =>
-              period.id ===
-              other.periodId,
-          ),
-        )
-        .filter(
-          (index) => index >= 0,
-        );
+  if (sameDayEntries.length > 0 && newPeriodIndex >= 0) {
+    const indices = sameDayEntries
+      .map((other) =>
+        periods.findIndex((period) => period.id === other.periodId),
+      )
+      .filter((index) => index >= 0);
 
     if (indices.length > 0) {
-      const min = Math.min(
-        ...indices,
-        newPeriodIndex,
-      );
+      const min = Math.min(...indices, newPeriodIndex);
 
-      const max = Math.max(
-        ...indices,
-        newPeriodIndex,
-      );
+      const max = Math.max(...indices, newPeriodIndex);
 
-      const span =
-        max - min + 1;
+      const span = max - min + 1;
 
-      score +=
-        (span -
-          (indices.length + 1)) *
-        10;
+      score += (span - (indices.length + 1)) * 10;
     }
   }
 
   /**
    * Avoid unnecessary movement.
    */
-  if (
-    entry.dayId === dayId &&
-    entry.periodId === periodId
-  ) {
+  if (entry.dayId === dayId && entry.periodId === periodId) {
     score -= 1000;
   }
 
@@ -2367,13 +2073,7 @@ const getRepairCandidates = (
        * Don't move an entry to its current
        * position.
        */
-      if (
-        samePosition(
-          entry,
-          day.id,
-          period.id,
-        )
-      ) {
+      if (samePosition(entry, day.id, period.id)) {
         continue;
       }
 
@@ -2382,21 +2082,15 @@ const getRepairCandidates = (
        *
        * The user's dragged lesson is protected.
        */
-      const occupant =
-        getClassOccupant(
-          entries,
-          entry.classId,
-          day.id,
-          period.id,
-          entry.id,
-        );
+      const occupant = getClassOccupant(
+        entries,
+        entry.classId,
+        day.id,
+        period.id,
+        entry.id,
+      );
 
-      if (
-        occupant &&
-        protectedIds.has(
-          occupant.id,
-        )
-      ) {
+      if (occupant && protectedIds.has(occupant.id)) {
         continue;
       }
 
@@ -2407,37 +2101,19 @@ const getRepairCandidates = (
        *
        * Class occupancy is allowed.
        */
-      if (
-        !canEntryUseSlot(
-          entries,
-          entry,
-          day.id,
-          period.id,
-          unavailable,
-        )
-      ) {
+      if (!canEntryUseSlot(entries, entry, day.id, period.id, unavailable)) {
         continue;
       }
 
       candidates.push({
         dayId: day.id,
         periodId: period.id,
-        score:
-          scoreRepairPosition(
-            entries,
-            entry,
-            day.id,
-            period.id,
-            periods,
-          ),
+        score: scoreRepairPosition(entries, entry, day.id, period.id, periods),
       });
     }
   }
 
-  return candidates.sort(
-    (a, b) =>
-      a.score - b.score,
-  );
+  return candidates.sort((a, b) => a.score - b.score);
 };
 
 /**
@@ -2453,12 +2129,7 @@ export const moveTimetableEntry = async ({
   periodId,
   userId,
 }: MoveRequest) => {
-  const [
-    existingEntries,
-    days,
-    periods,
-    availability,
-  ] = await Promise.all([
+  const [existingEntries, days, periods, availability] = await Promise.all([
     prisma.timetable.findMany({
       where: userId ? { class: { userId } } : undefined,
       include: {
@@ -2494,25 +2165,19 @@ export const moveTimetableEntry = async ({
     }),
   ]);
 
-  const original = existingEntries.find(
-    (entry) => entry.id === entryId,
-  );
+  const original = existingEntries.find((entry) => entry.id === entryId);
 
   if (!original) {
     throw new Error("Timetable entry not found.");
   }
 
-  const targetDay = days.find(
-    (day) => day.id === dayId,
-  );
+  const targetDay = days.find((day) => day.id === dayId);
 
   if (!targetDay) {
     throw new Error("Target day not found.");
   }
 
-  const targetPeriod = periods.find(
-    (period) => period.id === periodId,
-  );
+  const targetPeriod = periods.find((period) => period.id === periodId);
 
   if (!targetPeriod) {
     throw new Error("Target period not found.");
@@ -2521,10 +2186,7 @@ export const moveTimetableEntry = async ({
   /**
    * No-op.
    */
-  if (
-    original.dayId === dayId &&
-    original.periodId === periodId
-  ) {
+  if (original.dayId === dayId && original.periodId === periodId) {
     return {
       message: "Entry is already in this position.",
       moved: [],
@@ -2534,36 +2196,26 @@ export const moveTimetableEntry = async ({
 
   const unavailable = new Set(
     availability.map((item) =>
-      teacherSlotKey(
-        item.teacherId,
-        item.dayId,
-        item.periodId,
-      ),
+      teacherSlotKey(item.teacherId, item.dayId, item.periodId),
     ),
   );
 
-  const entries: MutableEntry[] =
-    existingEntries.map((entry) => ({
-      id: entry.id,
-      classId: entry.classId,
-      teacherSubjectId:
-        entry.teacherSubjectId,
-      teacherId:
-        entry.teacherSubject.teacherId,
-      subjectId:
-        entry.teacherSubject.subjectId,
-      dayId: entry.dayId,
-      periodId: entry.periodId,
-    }));
+  const entries: MutableEntry[] = existingEntries.map((entry) => ({
+    id: entry.id,
+    classId: entry.classId,
+    teacherSubjectId: entry.teacherSubjectId,
+    teacherId: entry.teacherSubject.teacherId,
+    subjectId: entry.teacherSubject.subjectId,
+    dayId: entry.dayId,
+    periodId: entry.periodId,
+  }));
 
   /**
    * The entry the user dragged is protected.
    *
    * It MUST remain at the requested destination.
    */
-  const protectedIds = new Set<string>([
-    entryId,
-  ]);
+  const protectedIds = new Set<string>([entryId]);
 
   let branches = 0;
 
@@ -2577,10 +2229,7 @@ export const moveTimetableEntry = async ({
 
   const initialEntries = cloneEntries(entries);
 
-  const movingEntry = findEntry(
-    initialEntries,
-    entryId,
-  );
+  const movingEntry = findEntry(initialEntries, entryId);
 
   if (!movingEntry) {
     throw new Error("Timetable entry not found.");
@@ -2595,10 +2244,7 @@ export const moveTimetableEntry = async ({
    * ---------------------------------------------------------
    */
 
-  const search = (
-    state: RepairState,
-    depth: number,
-  ): void => {
+  const search = (state: RepairState, depth: number): void => {
     branches++;
 
     if (branches > REPAIR_MAX_BRANCHES) {
@@ -2608,19 +2254,11 @@ export const moveTimetableEntry = async ({
     /**
      * We already have a solution with fewer moves.
      */
-    if (
-      bestSolution &&
-      state.moves.length >=
-        bestSolution.moves.length
-    ) {
+    if (bestSolution && state.moves.length >= bestSolution.moves.length) {
       return;
     }
 
-    const conflicts = getConflicts(
-      state.entries,
-      unavailable,
-      protectedIds,
-    );
+    const conflicts = getConflicts(state.entries, unavailable, protectedIds);
 
     /**
      * No conflicts = valid timetable.
@@ -2642,9 +2280,7 @@ export const moveTimetableEntry = async ({
      * Never move the lesson explicitly dragged
      * by the user.
      */
-    const movableConflicts = conflicts.filter(
-      (id) => id !== entryId,
-    );
+    const movableConflicts = conflicts.filter((id) => id !== entryId);
 
     if (movableConflicts.length === 0) {
       return;
@@ -2656,24 +2292,20 @@ export const moveTimetableEntry = async ({
      */
     const conflictCandidates = movableConflicts
       .map((id) => {
-        const conflictEntry = findEntry(
-          state.entries,
-          id,
-        );
+        const conflictEntry = findEntry(state.entries, id);
 
         if (!conflictEntry) {
           return null;
         }
 
-        const candidates =
-          getRepairCandidates(
-            state.entries,
-            conflictEntry,
-            days,
-            periods,
-            unavailable,
-            protectedIds,
-          );
+        const candidates = getRepairCandidates(
+          state.entries,
+          conflictEntry,
+          days,
+          periods,
+          unavailable,
+          protectedIds,
+        );
 
         return {
           entry: conflictEntry,
@@ -2692,44 +2324,31 @@ export const moveTimetableEntry = async ({
           }[];
         } => value !== null,
       )
-      .sort(
-        (a, b) =>
-          a.candidates.length -
-          b.candidates.length,
-      );
+      .sort((a, b) => a.candidates.length - b.candidates.length);
 
     if (conflictCandidates.length === 0) {
       return;
     }
 
-    const selectedConflict =
-      conflictCandidates[0];
+    const selectedConflict = conflictCandidates[0];
 
-    if (
-      selectedConflict.candidates.length === 0
-    ) {
+    if (selectedConflict.candidates.length === 0) {
       return;
     }
 
     /**
      * Try a reasonable number of best destinations.
      */
-    const candidates =
-      selectedConflict.candidates.slice(0, 12);
+    const candidates = selectedConflict.candidates.slice(0, 12);
 
     for (const candidate of candidates) {
       if (branches > REPAIR_MAX_BRANCHES) {
         return;
       }
 
-      const nextEntries = cloneEntries(
-        state.entries,
-      );
+      const nextEntries = cloneEntries(state.entries);
 
-      const entryToMove = findEntry(
-        nextEntries,
-        selectedConflict.entry.id,
-      );
+      const entryToMove = findEntry(nextEntries, selectedConflict.entry.id);
 
       if (!entryToMove) {
         continue;
@@ -2742,20 +2361,15 @@ export const moveTimetableEntry = async ({
       const occupant = nextEntries.find(
         (other) =>
           other.id !== entryToMove.id &&
-          other.classId ===
-            entryToMove.classId &&
+          other.classId === entryToMove.classId &&
           other.dayId === candidate.dayId &&
-          other.periodId ===
-            candidate.periodId,
+          other.periodId === candidate.periodId,
       );
 
       /**
        * Protected entries can never be moved.
        */
-      if (
-        occupant &&
-        protectedIds.has(occupant.id)
-      ) {
+      if (occupant && protectedIds.has(occupant.id)) {
         continue;
       }
 
@@ -2767,8 +2381,7 @@ export const moveTimetableEntry = async ({
        * recursive search handles it.
        */
       entryToMove.dayId = candidate.dayId;
-      entryToMove.periodId =
-        candidate.periodId;
+      entryToMove.periodId = candidate.periodId;
 
       const nextMoves: ProposedMove[] = [
         ...state.moves,
@@ -2809,25 +2422,24 @@ export const moveTimetableEntry = async ({
     );
   }
 
+  // The assignment happens inside the recursive callback, which TypeScript
+  // cannot use for control-flow narrowing after the null check.
+  const solution = bestSolution as RepairState;
+
   /**
    * ---------------------------------------------------------
    * FINAL VALIDATION
    * ---------------------------------------------------------
    */
 
-  const finalRequested =
-    bestSolution.entries.find(
-      (entry) => entry.id === entryId,
-    );
+  const finalRequested = solution.entries.find((entry) => entry.id === entryId);
 
   if (
     !finalRequested ||
     finalRequested.dayId !== dayId ||
     finalRequested.periodId !== periodId
   ) {
-    throw new Error(
-      "Unable to complete the requested move.",
-    );
+    throw new Error("Unable to complete the requested move.");
   }
 
   /**
@@ -2854,39 +2466,28 @@ export const moveTimetableEntry = async ({
    * constraint from being violated during the transaction.
    */
 
-  const changedMoves = bestSolution.moves.filter(
-    (move, index, array) => {
-      const firstIndex = array.findIndex(
-        (other) =>
-          other.entryId === move.entryId,
-      );
+  const changedMoves = solution.moves.filter((move, index, array) => {
+    const firstIndex = array.findIndex(
+      (other) => other.entryId === move.entryId,
+    );
 
-      return firstIndex === index;
-    },
-  );
+    return firstIndex === index;
+  });
 
   /**
    * Don't include entries that technically didn't move.
    */
-  const actualMoves = changedMoves.filter(
-    (move) => {
-      const originalEntry =
-        existingEntries.find(
-          (entry) =>
-            entry.id === move.entryId,
-        );
+  const actualMoves = changedMoves.filter((move) => {
+    const originalEntry = existingEntries.find(
+      (entry) => entry.id === move.entryId,
+    );
 
-      return (
-        originalEntry &&
-        (
-          originalEntry.dayId !==
-            move.dayId ||
-          originalEntry.periodId !==
-            move.periodId
-        )
-      );
-    },
-  );
+    return (
+      originalEntry &&
+      (originalEntry.dayId !== move.dayId ||
+        originalEntry.periodId !== move.periodId)
+    );
+  });
 
   /**
    * Generate temporary slots.
@@ -2902,234 +2503,205 @@ export const moveTimetableEntry = async ({
    * two-phase ID-only strategy below.
    */
 
-  await prisma.$transaction(
-    async (tx) => {
-      /**
-       * -----------------------------------------------------
-       * PHASE 1
-       * -----------------------------------------------------
-       *
-       * Move changed entries to temporary positions.
-       *
-       * We use a unique temporary period/day combination
-       * generated from the existing IDs.
-       *
-       * Since the database has a UNIQUE constraint on
-       * classId/dayId/periodId, each temporary position
-       * must also be unique for that class.
-       */
+  await prisma.$transaction(async (tx) => {
+    /**
+     * -----------------------------------------------------
+     * PHASE 1
+     * -----------------------------------------------------
+     *
+     * Move changed entries to temporary positions.
+     *
+     * We use a unique temporary period/day combination
+     * generated from the existing IDs.
+     *
+     * Since the database has a UNIQUE constraint on
+     * classId/dayId/periodId, each temporary position
+     * must also be unique for that class.
+     */
 
-      const temporarySlots: {
-        dayId: string;
-        periodId: number;
-      }[] = [];
+    const temporarySlots: {
+      dayId: string;
+      periodId: number;
+    }[] = [];
 
-      /**
-       * Find slots that are not currently used by ANY
-       * timetable entry.
-       */
-      const occupiedSlots = new Set(
-        existingEntries.map(
-          (entry) =>
-            `${entry.classId}::${entry.dayId}::${entry.periodId}`,
-        ),
+    /**
+     * Find slots that are not currently used by ANY
+     * timetable entry.
+     */
+    const occupiedSlots = new Set(
+      existingEntries.map(
+        (entry) => `${entry.classId}::${entry.dayId}::${entry.periodId}`,
+      ),
+    );
+
+    /**
+     * We need one temporary slot per changed entry.
+     *
+     * Search all configured slots.
+     */
+    for (const day of days) {
+      for (const period of periods) {
+        const usedByChangedClass = actualMoves.some((move) => {
+          const originalEntry = existingEntries.find(
+            (entry) => entry.id === move.entryId,
+          );
+
+          if (!originalEntry) {
+            return false;
+          }
+
+          return occupiedSlots.has(
+            `${originalEntry.classId}::${day.id}::${period.id}`,
+          );
+        });
+
+        if (usedByChangedClass) {
+          continue;
+        }
+
+        temporarySlots.push({
+          dayId: day.id,
+          periodId: period.id,
+        });
+      }
+    }
+
+    /**
+     * We actually need temporary slots per CLASS,
+     * not globally.
+     *
+     * Therefore generate them separately below.
+     */
+
+    const usedTemporaryKeys = new Set<string>();
+
+    /**
+     * PHASE 1:
+     *
+     * For every changed entry, find a temporary slot
+     * that is free for its class.
+     */
+    const temporaryAssignments: {
+      entryId: string;
+      dayId: string;
+      periodId: number;
+    }[] = [];
+
+    for (const move of actualMoves) {
+      const current = existingEntries.find(
+        (entry) => entry.id === move.entryId,
       );
 
-      /**
-       * We need one temporary slot per changed entry.
-       *
-       * Search all configured slots.
-       */
+      if (!current) {
+        throw new Error("Unable to find entry during repair.");
+      }
+
+      let found = false;
+
       for (const day of days) {
         for (const period of periods) {
-          const usedByChangedClass =
-            actualMoves.some((move) => {
-              const originalEntry =
-                existingEntries.find(
-                  (entry) =>
-                    entry.id ===
-                    move.entryId,
-                );
+          const tempKey = `${current.classId}::${day.id}::${period.id}`;
 
-              if (!originalEntry) {
-                return false;
-              }
-
-              return occupiedSlots.has(
-                `${originalEntry.classId}::${day.id}::${period.id}`,
-              );
-            });
-
-          if (usedByChangedClass) {
+          /**
+           * Must not currently be occupied.
+           */
+          if (occupiedSlots.has(tempKey)) {
             continue;
           }
 
-          temporarySlots.push({
+          /**
+           * Must not already be assigned as a
+           * temporary position.
+           */
+          if (usedTemporaryKeys.has(tempKey)) {
+            continue;
+          }
+
+          /**
+           * Don't accidentally use the final
+           * position of another changed entry.
+           */
+          const isFinalPosition = actualMoves.some((other) => {
+            const otherEntry = existingEntries.find(
+              (entry) => entry.id === other.entryId,
+            );
+
+            if (!otherEntry) {
+              return false;
+            }
+
+            return (
+              otherEntry.classId === current.classId &&
+              other.dayId === day.id &&
+              other.periodId === period.id
+            );
+          });
+
+          if (isFinalPosition) {
+            continue;
+          }
+
+          temporaryAssignments.push({
+            entryId: move.entryId,
             dayId: day.id,
             periodId: period.id,
           });
+
+          usedTemporaryKeys.add(tempKey);
+
+          found = true;
+          break;
+        }
+
+        if (found) {
+          break;
         }
       }
 
-      /**
-       * We actually need temporary slots per CLASS,
-       * not globally.
-       *
-       * Therefore generate them separately below.
-       */
-
-      const usedTemporaryKeys =
-        new Set<string>();
-
-      /**
-       * PHASE 1:
-       *
-       * For every changed entry, find a temporary slot
-       * that is free for its class.
-       */
-      const temporaryAssignments: {
-        entryId: string;
-        dayId: string;
-        periodId: number;
-      }[] = [];
-
-      for (const move of actualMoves) {
-        const current =
-          existingEntries.find(
-            (entry) =>
-              entry.id === move.entryId,
-          );
-
-        if (!current) {
-          throw new Error(
-            "Unable to find entry during repair.",
-          );
-        }
-
-        let found = false;
-
-        for (const day of days) {
-          for (const period of periods) {
-            const tempKey =
-              `${current.classId}::${day.id}::${period.id}`;
-
-            /**
-             * Must not currently be occupied.
-             */
-            if (
-              occupiedSlots.has(tempKey)
-            ) {
-              continue;
-            }
-
-            /**
-             * Must not already be assigned as a
-             * temporary position.
-             */
-            if (
-              usedTemporaryKeys.has(
-                tempKey,
-              )
-            ) {
-              continue;
-            }
-
-            /**
-             * Don't accidentally use the final
-             * position of another changed entry.
-             */
-            const isFinalPosition =
-              actualMoves.some(
-                (other) => {
-                  const otherEntry =
-                    existingEntries.find(
-                      (entry) =>
-                        entry.id ===
-                        other.entryId,
-                    );
-
-                  if (!otherEntry) {
-                    return false;
-                  }
-
-                  return (
-                    otherEntry.classId ===
-                      current.classId &&
-                    other.dayId === day.id &&
-                    other.periodId ===
-                      period.id
-                  );
-                },
-              );
-
-            if (isFinalPosition) {
-              continue;
-            }
-
-            temporaryAssignments.push({
-              entryId: move.entryId,
-              dayId: day.id,
-              periodId: period.id,
-            });
-
-            usedTemporaryKeys.add(
-              tempKey,
-            );
-
-            found = true;
-            break;
-          }
-
-          if (found) {
-            break;
-          }
-        }
-
-        if (!found) {
-          throw new Error(
-            "Unable to create temporary positions for the timetable repair.",
-          );
-        }
+      if (!found) {
+        throw new Error(
+          "Unable to create temporary positions for the timetable repair.",
+        );
       }
+    }
 
-      /**
-       * Move everything away from its current position.
-       */
-      for (const temporary of temporaryAssignments) {
-        await tx.timetable.update({
-          where: {
-            id: temporary.entryId,
-          },
-          data: {
-            dayId: temporary.dayId,
-            periodId: temporary.periodId,
-          },
-        });
-      }
+    /**
+     * Move everything away from its current position.
+     */
+    for (const temporary of temporaryAssignments) {
+      await tx.timetable.update({
+        where: {
+          id: temporary.entryId,
+        },
+        data: {
+          dayId: temporary.dayId,
+          periodId: temporary.periodId,
+        },
+      });
+    }
 
-      /**
-       * -----------------------------------------------------
-       * PHASE 2
-       * -----------------------------------------------------
-       *
-       * Now all original positions are free.
-       *
-       * Apply the actual requested/repair positions.
-       */
+    /**
+     * -----------------------------------------------------
+     * PHASE 2
+     * -----------------------------------------------------
+     *
+     * Now all original positions are free.
+     *
+     * Apply the actual requested/repair positions.
+     */
 
-      for (const move of actualMoves) {
-        await tx.timetable.update({
-          where: {
-            id: move.entryId,
-          },
-          data: {
-            dayId: move.dayId,
-            periodId: move.periodId,
-          },
-        });
-      }
-    },
-  );
+    for (const move of actualMoves) {
+      await tx.timetable.update({
+        where: {
+          id: move.entryId,
+        },
+        data: {
+          dayId: move.dayId,
+          periodId: move.periodId,
+        },
+      });
+    }
+  });
 
   /**
    * ---------------------------------------------------------
@@ -3137,35 +2709,29 @@ export const moveTimetableEntry = async ({
    * ---------------------------------------------------------
    */
 
-  const changedIds = new Set(
-    actualMoves.map(
-      (move) => move.entryId,
-    ),
-  );
+  const changedIds = new Set(actualMoves.map((move) => move.entryId));
 
-  const updatedEntries =
-    await prisma.timetable.findMany({
-      where: {
-        id: {
-          in: [...changedIds],
+  const updatedEntries = await prisma.timetable.findMany({
+    where: {
+      id: {
+        in: [...changedIds],
+      },
+    },
+    include: {
+      class: true,
+      day: true,
+      period: true,
+      teacherSubject: {
+        include: {
+          teacher: true,
+          subject: true,
         },
       },
-      include: {
-        class: true,
-        day: true,
-        period: true,
-        teacherSubject: {
-          include: {
-            teacher: true,
-            subject: true,
-          },
-        },
-      },
-    });
+    },
+  });
 
   return {
-    message:
-      "Timetable updated successfully.",
+    message: "Timetable updated successfully.",
     moved: updatedEntries,
     changes: actualMoves.length,
   };
