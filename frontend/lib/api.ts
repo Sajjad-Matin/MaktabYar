@@ -1,6 +1,5 @@
 const API_BASE =
-  process.env.BACKEND_API?.replace(/\/$/, "") ||
-  "http://localhost:5000/api";
+  process.env.BACKEND_API
 
 export async function apiFetch<T>(
   endpoint: string,

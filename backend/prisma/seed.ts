@@ -133,15 +133,11 @@ async function seedSchoolData() {
       update: {
         number: item.number,
         userId,
-        start_time: item.start_time,
-        end_time: item.end_time,
       },
       create: {
         id: item.id,
         number: item.number,
         userId,
-        start_time: item.start_time,
-        end_time: item.end_time,
       },
     });
   }
