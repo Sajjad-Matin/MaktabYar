@@ -46,7 +46,9 @@ export default function TeacherTimetablePage() {
   const handleExport = async () => {
     setExporting(true);
     try {
-      const baseUrl = (process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_API)?.replace(/\/$/, "");
+      const baseUrl = (
+        process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_API
+      )?.replace(/\/$/, "");
       if (!baseUrl) throw new Error("Frontend API URL is not configured.");
       const token = localStorage.getItem("token");
       if (!token) {

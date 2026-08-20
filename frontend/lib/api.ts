@@ -1,7 +1,6 @@
 const API_BASE = (
-  process.env.NEXT_PUBLIC_API_URL ||
-  process.env.NEXT_PUBLIC_BACKEND_API
-)?.replace(/\/$/, "")
+  process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_API
+)?.replace(/\/$/, "");
 
 export async function apiFetch<T>(
   endpoint: string,
@@ -18,7 +17,7 @@ export async function apiFetch<T>(
   }
 
   // Attach JWT token if available
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (token && !headers.has("Authorization")) {
     headers.set("Authorization", `Bearer ${token}`);
   }
@@ -37,10 +36,10 @@ export async function apiFetch<T>(
   if (!res.ok) {
     // Handle 401 Unauthorized - clear auth state and redirect to login
     if (res.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      if (typeof window !== 'undefined') {
-        window.location.href = '/login';
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
       }
     }
 
