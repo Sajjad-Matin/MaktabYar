@@ -67,9 +67,7 @@ export default function SettingsPage() {
     if (!newPeriodNumber) return;
     try {
       await createPeriod({
-        number: parseInt(newPeriodNumber),
-        start_time: newPeriodStart || undefined,
-        end_time: newPeriodEnd || undefined,
+        number: parseInt(newPeriodNumber)
       });
       setNewPeriodNumber("");
       setNewPeriodStart("");

@@ -27,8 +27,6 @@ export const usePeriod = () => {
 
   const createPeriod = async (data: {
     number: number;
-    start_time?: string;
-    end_time?: string;
   }) => {
     setLoading(true);
     try {
