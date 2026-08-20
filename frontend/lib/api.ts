@@ -1,5 +1,5 @@
 const API_BASE =
-  process.env.BACKEND_API
+  process.env.NEXT_PUBLIC_BACKEND_API
 
 export async function apiFetch<T>(
   endpoint: string,
