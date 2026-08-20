@@ -83,17 +83,12 @@ function LoginContent() {
         <div className="flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-3 group">
             <img
-              className="h-10 w-12 object-contain group-hover:scale-105 transition-transform"
+              className="h-14 w-20 object-contain group-hover:scale-105 transition-transform"
               src={logo.src}
-              alt="TimeTable Logo"
+              alt={t("brandAlt")}
             />
             <div className="flex flex-col text-left rtl:text-right">
-              <span className="text-xl font-bold tracking-tight text-foreground">
-                TimeTable
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60">
-                Professional
-              </span>
+              <span className="text-2xl font-bold tracking-tight text-foreground">{t("brandName")}</span>
             </div>
           </Link>
 

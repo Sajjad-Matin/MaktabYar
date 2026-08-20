@@ -13,9 +13,9 @@ export function MarketingFooter() {
       <div className="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-muted-foreground">
         <div className="flex items-center gap-3">
           <img
-            className="h-8 w-10 object-contain"
+            className="h-10 w-14 object-contain"
             src={logo.src}
-            alt="TimeTable Logo"
+            alt={t("brandAlt")}
           />
           <div className="flex flex-col text-left rtl:text-right">
             <span className="text-sm font-bold text-foreground">{t("footerTitle")}</span>

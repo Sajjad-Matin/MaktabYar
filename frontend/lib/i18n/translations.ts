@@ -1,6 +1,11 @@
 export type Language = "en" | "fa" | "ps";
 
 export interface Translations {
+  // Product branding
+  brandName: string;
+  brandTagline: string;
+  brandAlt: string;
+
   // Navigation (Public)
   navPackages: string;
   navFeatures: string;
@@ -313,6 +318,10 @@ export interface Translations {
 
 export const translations: Record<Language, Translations> = {
   en: {
+    brandName: "MaktabYar",
+    brandTagline: "Smart Timetable Management System",
+    brandAlt: "MaktabYar logo",
+
     navPackages: "Packages & Pricing",
     navFeatures: "System Features",
     navSignIn: "Sign In",
@@ -337,7 +346,7 @@ export const translations: Record<Language, Translations> = {
     exit: "Exit",
     website: "Website",
 
-    heroBadge: "TimeTable Professional",
+    heroBadge: "MaktabYar",
     heroTitle1: "Automated Timetable",
     heroTitleHighlight: "Management System",
     heroDescription:
@@ -412,9 +421,9 @@ export const translations: Record<Language, Translations> = {
     loginPkgCallout: "Package A1 (500 AFN)",
     loginViewPkg: "View Packages →",
 
-    footerTitle: "TimeTable Professional",
+    footerTitle: "MaktabYar",
     footerSub: "Conflict-Free Timetable Management System",
-    footerRights: "TimeTable Manager. All rights reserved.",
+    footerRights: "MaktabYar. All rights reserved.",
 
     dashOverview: "Overview",
     dashWelcome: "Welcome back,",
@@ -610,6 +619,10 @@ export const translations: Record<Language, Translations> = {
     loadingSubjects: "Loading subjects...",
   },
   fa: {
+    brandName: "مکتب یار",
+    brandTagline: "سیستم هوشمند مدیریت تقسیم اوقات",
+    brandAlt: "لوگوی مکتب یار",
+
     navPackages: "پکیج‌ها و قیمت‌ها",
     navFeatures: "قابلیت‌های سیستم",
     navSignIn: "ورود به سیستم",
@@ -709,9 +722,9 @@ export const translations: Record<Language, Translations> = {
     loginPkgCallout: "پکیج A1 (۵۰۰ افغانی)",
     loginViewPkg: "مشاهده پکیج‌ها ←",
 
-    footerTitle: "TimeTable Professional",
+    footerTitle: "مکتب یار",
     footerSub: "سیستم هوشمند مدیریت تقسیم اوقات درسی",
-    footerRights: "تمامی حقوق برای TimeTable Manager محفوظ است.",
+    footerRights: "تمامی حقوق برای مکتب یار محفوظ است.",
 
     dashOverview: "نمای عمومی",
     dashWelcome: "خوش آمدید،",
@@ -907,6 +920,10 @@ export const translations: Record<Language, Translations> = {
     loadingSubjects: "در حال بارگذاری مضمون‌ها...",
   },
   ps: {
+    brandName: "مکتب یار",
+    brandTagline: "د تقسیم اوقات هوښیار مدیریت سیستم",
+    brandAlt: "د مکتب یار لوګو",
+
     navPackages: "پکېجونه او قیمتونه",
     navFeatures: "د سیستم بڼې",
     navSignIn: "ننوتل",
@@ -1006,9 +1023,9 @@ export const translations: Record<Language, Translations> = {
     loginPkgCallout: "پکېج A1 (۵۰۰ افغانۍ)",
     loginViewPkg: "پکېجونه کتل ←",
 
-    footerTitle: "TimeTable Professional",
+    footerTitle: "مکتب یار",
     footerSub: "د درسي تقسیم اوقات هوشمند مدیریت سیستم",
-    footerRights: "ټول حقونه له TimeTable Manager سره خوندي دي.",
+    footerRights: "ټول حقونه له مکتب یار سره خوندي دي.",
 
     dashOverview: "عمومي لید",
     dashWelcome: "ښه راغلاست،",

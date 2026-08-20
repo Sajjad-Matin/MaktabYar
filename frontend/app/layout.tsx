@@ -8,9 +8,9 @@ import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
-  title: "TimeTable Generator - Professional Scheduling System",
+  title: "MaktabYar | مکتب یار؛ سیستم هوشمند مدیریت تقسیم اوقات",
   description:
-    "Automated conflict-free timetable management system for schools, colleges, and universities",
+    "MaktabYar؛ سیستم هوشمند مدیریت تقسیم اوقات برای مکاتب، پوهنتون‌ها و مراکز آموزشی",
   icons: {
     icon: [
       {

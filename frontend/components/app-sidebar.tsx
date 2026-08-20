@@ -130,17 +130,12 @@ export function AppSidebar() {
       <SidebarHeader className="p-6">
         <Link href="/dashboard" className="group flex items-center gap-3">
           <img
-            className="h-12 w-12 object-contain group-hover:scale-110 transition-transform duration-300"
+            className="h-16 w-20 object-contain group-hover:scale-110 transition-transform duration-300"
             src={logo.src}
-            alt="TimeTable Logo"
+            alt={t("brandAlt")}
           />
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              TimeTable
-            </span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60">
-              Professional
-            </span>
+            <span className="text-2xl font-bold tracking-tight text-foreground">{t("brandName")}</span>
           </div>
         </Link>
       </SidebarHeader>

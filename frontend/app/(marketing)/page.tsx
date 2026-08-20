@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Sparkles,
   Calendar,
   Users,
   BookOpen,
@@ -105,18 +104,15 @@ export default function MultiLangHomePage() {
         className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border border-primary/10 p-8 md:p-12 lg:p-14"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-          {/* Left Column: Clean Title & Description */}
+          {/* Left Column: Product title, slogan, and description */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="flex items-center gap-2 text-primary">
-              <Sparkles className="h-5 w-5" />
-              <span className="text-sm font-semibold tracking-wider uppercase">
-                {t("heroBadge")}
-              </span>
-            </div>
-
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.15]">
-              {t("heroTitle1")} <span className="text-primary">{t("heroTitleHighlight")}</span>
+              {t("brandName")}
             </h1>
+
+            <p className="text-xl md:text-2xl font-semibold text-primary leading-tight">
+              {t("brandTagline")}
+            </p>
 
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
               {t("heroDescription")}

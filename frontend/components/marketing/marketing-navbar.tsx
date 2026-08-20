@@ -37,17 +37,12 @@ export function MarketingNavbar() {
         {/* Logo matching Sidebar */}
         <Link href="/" className="flex items-center gap-3 group">
           <img
-            className="h-10 w-12 object-contain group-hover:scale-105 transition-transform duration-300"
+            className="h-14 w-20 object-contain group-hover:scale-105 transition-transform duration-300"
             src={logo.src}
-            alt="TimeTable Logo"
+            alt={t("brandAlt")}
           />
           <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tight text-foreground">
-              TimeTable
-            </span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60">
-              Professional
-            </span>
+            <span className="text-xl font-bold tracking-tight text-foreground">{t("brandName")}</span>
           </div>
         </Link>
 
