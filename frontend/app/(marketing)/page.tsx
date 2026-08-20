@@ -13,7 +13,13 @@ import {
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { PackageDetails } from "@/components/marketing/package-modal";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { apiFetch } from "@/lib/api";
@@ -41,19 +47,19 @@ export default function MultiLangHomePage() {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const data = await apiFetch<any[]>('/packages');
+        const data = await apiFetch<any[]>("/packages");
         const mappedPackages: PackageDetails[] = data.map((pkg) => ({
           id: pkg.id,
           name: pkg.name,
           price: pkg.price.toString(),
           currency: t("afnCurrency"),
-          generations: pkg.features[0] || '',
-          validity: pkg.features[1] || '',
+          generations: pkg.features[0] || "",
+          validity: pkg.features[1] || "",
           description: pkg.description,
         }));
         setPackages(mappedPackages);
       } catch (error) {
-        console.error('Failed to fetch packages:', error);
+        console.error("Failed to fetch packages:", error);
         // Fallback to hardcoded packages if API fails
         setPackages([
           {
@@ -156,7 +162,11 @@ export default function MultiLangHomePage() {
       </motion.div>
 
       {/* Packages & Pricing Section */}
-      <motion.section id="packages" variants={item} className="space-y-6 pt-4 scroll-mt-20">
+      <motion.section
+        id="packages"
+        variants={item}
+        className="space-y-6 pt-4 scroll-mt-20"
+      >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-primary/10 pb-4">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
@@ -196,7 +206,9 @@ export default function MultiLangHomePage() {
                     <span className="text-3xl font-extrabold text-foreground tracking-tight">
                       {pkg.price}
                     </span>
-                    <span className="text-sm font-bold text-primary">{t("afnCurrency")}</span>
+                    <span className="text-sm font-bold text-primary">
+                      {t("afnCurrency")}
+                    </span>
                   </div>
                 </CardHeader>
 
@@ -220,7 +232,9 @@ export default function MultiLangHomePage() {
                         : "bg-accent/40 hover:bg-accent text-foreground border border-primary/5"
                     }`}
                   >
-                    {isFeatured ? t("pkgA1Btn") : `${t("selectPackage")} ${pkg.name}`}
+                    {isFeatured
+                      ? t("pkgA1Btn")
+                      : `${t("selectPackage")} ${pkg.name}`}
                   </Button>
                 </CardContent>
               </Card>
@@ -245,7 +259,9 @@ export default function MultiLangHomePage() {
             <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-500 w-fit">
               <Calendar className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-bold text-foreground">{t("feat1Title")}</h3>
+            <h3 className="text-lg font-bold text-foreground">
+              {t("feat1Title")}
+            </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {t("feat1Desc")}
             </p>
@@ -255,7 +271,9 @@ export default function MultiLangHomePage() {
             <div className="p-3 rounded-2xl bg-purple-500/10 text-purple-500 w-fit">
               <Users className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-bold text-foreground">{t("feat2Title")}</h3>
+            <h3 className="text-lg font-bold text-foreground">
+              {t("feat2Title")}
+            </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {t("feat2Desc")}
             </p>
@@ -265,14 +283,15 @@ export default function MultiLangHomePage() {
             <div className="p-3 rounded-2xl bg-orange-500/10 text-orange-500 w-fit">
               <BookOpen className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-bold text-foreground">{t("feat3Title")}</h3>
+            <h3 className="text-lg font-bold text-foreground">
+              {t("feat3Title")}
+            </h3>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {t("feat3Desc")}
             </p>
           </Card>
         </div>
       </motion.section>
-
     </motion.div>
   );
 }

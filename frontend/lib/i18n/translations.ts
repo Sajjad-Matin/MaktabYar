@@ -114,6 +114,13 @@ export interface Translations {
   footerTitle: string;
   footerSub: string;
   footerRights: string;
+  footerSystemTitle: string;
+  footerSystemDescription: string;
+  footerPagesTitle: string;
+  footerServicesTitle: string;
+  footerCustomPackage: string;
+  footerContactWhatsApp: string;
+  footerBuiltBy: string;
 
   // Dashboard Overview Page
   dashOverview: string;
@@ -358,12 +365,14 @@ export const translations: Record<Language, Translations> = {
     packagesSubtitle:
       "Select a suitable plan for your institution. Package A1 offers 5 timetable generations for 500 AFN.",
     pkgTrialName: "Free Trial",
-    pkgTrialDesc: "Sample test tier for generating your first timetable schedule.",
+    pkgTrialDesc:
+      "Sample test tier for generating your first timetable schedule.",
     pkgTrialGen: "1 Time Timetable Generation",
     pkgTrialVal: "7 Days",
     pkgA1Name: "Package A1",
     pkgA1Badge: "RECOMMENDED",
-    pkgA1Desc: "Standard package for regular semester and term timetable updates.",
+    pkgA1Desc:
+      "Standard package for regular semester and term timetable updates.",
     pkgA1Gen: "5 Times Timetable Generation",
     pkgA1Val: "Till 2 Months",
     pkgA1Btn: "Buy Package A1 (500 AFN)",
@@ -380,16 +389,21 @@ export const translations: Record<Language, Translations> = {
     afnCurrency: "AFN",
 
     featuresTitle: "System Capabilities",
-    featuresSubtitle: "Built to provide clean, error-free timetabling management.",
+    featuresSubtitle:
+      "Built to provide clean, error-free timetabling management.",
     feat1Title: "Conflict Detection",
-    feat1Desc: "Prevents double booking teachers or rooms across overlapping class periods automatically.",
+    feat1Desc:
+      "Prevents double booking teachers or rooms across overlapping class periods automatically.",
     feat2Title: "Teacher Workload Management",
-    feat2Desc: "Set period quotas per teacher and customize day-off availability rules per subject.",
+    feat2Desc:
+      "Set period quotas per teacher and customize day-off availability rules per subject.",
     feat3Title: "Export Ready",
-    feat3Desc: "Print master schedules or export class timetables cleanly to PDF and Excel files.",
+    feat3Desc:
+      "Print master schedules or export class timetables cleanly to PDF and Excel files.",
 
     modalTitle: "Package Checkout",
-    modalSub: "Complete your institution details below to activate your timetable generation package.",
+    modalSub:
+      "Complete your institution details below to activate your timetable generation package.",
     modalSchoolLabel: "School / University Name",
     modalSchoolPlaceholder: "e.g., Marefat High School / Kabul University",
     modalPhoneLabel: "Contact Phone / WhatsApp Number",
@@ -403,13 +417,15 @@ export const translations: Record<Language, Translations> = {
     modalGuarantee: "Instant Account Activation Guarantee",
     modalSuccessTitle: "Order Received!",
     modalSuccessSub: "Thank you for your order.",
-    modalSuccessMsg: "Our agent will reach out via WhatsApp/Call to confirm payment and grant your package.",
+    modalSuccessMsg:
+      "Our agent will reach out via WhatsApp/Call to confirm payment and grant your package.",
     modalDoneBtn: "Done & Return",
 
     loginAuthBadge: "Authentication",
     loginReturnHome: "← Return to Home",
     loginTitle: "Sign In",
-    loginSub: "Enter your credentials to access your timetable system dashboard.",
+    loginSub:
+      "Enter your credentials to access your timetable system dashboard.",
     roleAdmin: "Admin",
     rolePrincipal: "Principal",
     roleTeacher: "Teacher",
@@ -424,10 +440,18 @@ export const translations: Record<Language, Translations> = {
     footerTitle: "MaktabYar",
     footerSub: "Conflict-Free Timetable Management System",
     footerRights: "MaktabYar. All rights reserved.",
+    footerSystemTitle: "The System",
+    footerSystemDescription: "Smart timetable management for schools, colleges, and universities.",
+    footerPagesTitle: "Pages",
+    footerServicesTitle: "Requests & Services",
+    footerCustomPackage: "Create your own package",
+    footerContactWhatsApp: "Contact us on WhatsApp",
+    footerBuiltBy: "Built by Nexvin",
 
     dashOverview: "Overview",
     dashWelcome: "Welcome back,",
-    dashWelcomeMsg: "Your timetable management system is running smoothly. You have",
+    dashWelcomeMsg:
+      "Your timetable management system is running smoothly. You have",
     dashActiveClasses: "active classes and",
     dashTeachersAssigned: "teachers assigned.",
     statClassesTitle: "Total Classes",
@@ -456,40 +480,48 @@ export const translations: Record<Language, Translations> = {
     teachersPageBadge: "Faculty Management",
     teachersPageTitle: "Teachers",
     teachersPageTitleHighlight: "Directory",
-    teachersPageDesc: "Manage your academic staff, their profiles, and subject assignments in one place.",
+    teachersPageDesc:
+      "Manage your academic staff, their profiles, and subject assignments in one place.",
     teachersDeleteAll: "Delete All",
     teachersAddNew: "Add New Teacher",
     teachersSearchPlaceholder: "Search teachers by name...",
     teachersEmpty: "No teachers found",
-    teachersEmptyDesc: "We couldn't find any teachers matching your search criteria.",
+    teachersEmptyDesc:
+      "We couldn't find any teachers matching your search criteria.",
 
     classesPageBadge: "Class Management",
     classesPageTitle: "Academic",
     classesPageTitleHighlight: "Classes",
-    classesPageDesc: "Manage all school classes, their schedules, and assignments.",
+    classesPageDesc:
+      "Manage all school classes, their schedules, and assignments.",
     classesDeleteAll: "Delete All",
     classesAddNew: "Add New Class",
     classesSearchPlaceholder: "Search classes by name...",
     classesEmpty: "No classes found",
-    classesEmptyDesc: "We couldn't find any classes matching your search criteria.",
+    classesEmptyDesc:
+      "We couldn't find any classes matching your search criteria.",
 
     subjectsPageBadge: "Curriculum Management",
     subjectsPageTitle: "Academic",
     subjectsPageTitleHighlight: "Subjects",
-    subjectsPageDesc: "Define and organize your school's curriculum, including core subjects and electives.",
+    subjectsPageDesc:
+      "Define and organize your school's curriculum, including core subjects and electives.",
     subjectsDeleteAll: "Delete All",
     subjectsAddNew: "Add New Subject",
     subjectsSearchPlaceholder: "Search subjects by name...",
     subjectsEmpty: "No subjects found",
-    subjectsEmptyDesc: "We couldn't find any subjects matching your search criteria.",
+    subjectsEmptyDesc:
+      "We couldn't find any subjects matching your search criteria.",
 
     assignmentsPageTitle: "Faculty",
     assignmentsPageTitleHighlight: "Assignments",
-    assignmentsPageDesc: "Connect teachers with their subjects and assign them to specific class groups.",
+    assignmentsPageDesc:
+      "Connect teachers with their subjects and assign them to specific class groups.",
     assignmentsDeleteAll: "Delete All Assignments",
     assignmentsSearchPlaceholder: "Search faculty members...",
     assignmentsEmpty: "No faculty members found",
-    assignmentsEmptyDesc: "We couldn't find any teachers matching your search criteria.",
+    assignmentsEmptyDesc:
+      "We couldn't find any teachers matching your search criteria.",
     assignmentsAddSubject: "Add Subject",
     assignmentsAssignClass: "Assign to Class",
     assignmentsAssignedClasses: "Assigned Classes",
@@ -498,14 +530,16 @@ export const translations: Record<Language, Translations> = {
     timetablePageBadge: "Schedule Planner",
     timetablePageTitle: "Master",
     timetablePageTitleHighlight: "Timetable",
-    timetablePageDesc: "Visualize and manage class schedules, period assignments, and room allocations.",
+    timetablePageDesc:
+      "Visualize and manage class schedules, period assignments, and room allocations.",
     timetableSelectClass: "Select a class group...",
     timetableClassLabel: "CLASS",
     menuTeacherTimetable: "Teacher Timetables",
     teacherTimetablePageBadge: "Faculty Schedule",
     teacherTimetablePageTitle: "Teacher",
     teacherTimetablePageTitleHighlight: "Timetables",
-    teacherTimetablePageDesc: "View each teacher’s weekly schedule and the class they teach in every period.",
+    teacherTimetablePageDesc:
+      "View each teacher’s weekly schedule and the class they teach in every period.",
     teacherTimetableLabel: "TEACHER",
     teacherTimetableSelect: "Select a teacher...",
     teacherTimetableExport: "Export",
@@ -522,7 +556,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Add Class
     modalAddClassTitle: "Create Class Group",
-    modalAddClassDesc: "Define a new student group for scheduling and management.",
+    modalAddClassDesc:
+      "Define a new student group for scheduling and management.",
     modalAddClassLabel: "Class Name / Identifier",
     modalAddClassPlaceholder: "e.g., Grade 11-B (Science)",
     modalAddClassSubmit: "Create Class Group",
@@ -542,7 +577,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Assign Subject to Teacher
     modalAssignSubjectTitle: "Assign Subject to Teacher",
-    modalAssignSubjectDesc: "Link a faculty member to a specific academic subject.",
+    modalAssignSubjectDesc:
+      "Link a faculty member to a specific academic subject.",
     modalAssignSubjectTeacherLabel: "Select Teacher",
     modalAssignSubjectTeacherPlaceholder: "Choose a teacher...",
     modalAssignSubjectSubjectLabel: "Select Subject",
@@ -556,7 +592,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Assign Teacher to Class
     modalAssignClassTitle: "Assign Teacher to Class",
-    modalAssignClassDesc: "Link a faculty member and their subject to student groups.",
+    modalAssignClassDesc:
+      "Link a faculty member and their subject to student groups.",
     modalAssignClassTeacherLabel: "Faculty Member",
     modalAssignClassTeacherPlaceholder: "Select teacher",
     modalAssignClassSubjectLabel: "Subject",
@@ -567,7 +604,8 @@ export const translations: Record<Language, Translations> = {
     modalAssignClassSubmitting: "Assigning...",
     modalAssignClassSuccess: "Teacher assigned to classes successfully",
     modalAssignClassError: "Failed to assign teacher to classes",
-    modalAssignClassValidation: "Please select a teacher, a subject, and at least one class",
+    modalAssignClassValidation:
+      "Please select a teacher, a subject, and at least one class",
 
     // Modals – General (Edit)
     modalEditUpdateLabel: "Update Information",
@@ -607,7 +645,8 @@ export const translations: Record<Language, Translations> = {
     confirmDeleteSubjectSingleSuccess: "Subject deleted successfully",
     confirmDeleteSubjectSingleError: "Failed to delete subject",
     confirmDeleteAllSubjectsTitle: "Delete All Subjects",
-    confirmDeleteAllSubjectsDesc: "Are you sure you want to delete all subjects? This action cannot be undone.",
+    confirmDeleteAllSubjectsDesc:
+      "Are you sure you want to delete all subjects? This action cannot be undone.",
     confirmDeleteAllSubjectsSuccess: "All subjects deleted successfully",
     confirmDeleteAllSubjectsError: "Failed to delete all subjects",
     confirmDeleteText: "Delete All",
@@ -690,7 +729,8 @@ export const translations: Record<Language, Translations> = {
     feat3Desc: "چاپ مستقیم تقسیم اوقات و خروجی بافرمت استاندارد اکسل و PDF.",
 
     modalTitle: "ثبت سفارش پکیج",
-    modalSub: "برای فعال‌سازی پکیج تقسیم اوقات، معلومات مکتب یا پوهنتون خود را وارد کنید.",
+    modalSub:
+      "برای فعال‌سازی پکیج تقسیم اوقات، معلومات مکتب یا پوهنتون خود را وارد کنید.",
     modalSchoolLabel: "نام مکتب / پوهنتون",
     modalSchoolPlaceholder: "مثلاً: لیسه معرفت / پوهنتون کابل",
     modalPhoneLabel: "شماره تماس / واتساپ",
@@ -704,7 +744,8 @@ export const translations: Record<Language, Translations> = {
     modalGuarantee: "تضمین فعال‌سازی سریع حساب",
     modalSuccessTitle: "سفارش شما ثبت شد!",
     modalSuccessSub: "تشکر از سفارش شما.",
-    modalSuccessMsg: "همکاران ما به زودی از طریق واتساپ یا تماس تلفنی جهت تایید پرداخت با شما تماس خواهند گرفت.",
+    modalSuccessMsg:
+      "همکاران ما به زودی از طریق واتساپ یا تماس تلفنی جهت تایید پرداخت با شما تماس خواهند گرفت.",
     modalDoneBtn: "بستن و بازگشت",
 
     loginAuthBadge: "احراز هویت",
@@ -725,10 +766,18 @@ export const translations: Record<Language, Translations> = {
     footerTitle: "مکتب یار",
     footerSub: "سیستم هوشمند مدیریت تقسیم اوقات درسی",
     footerRights: "تمامی حقوق برای مکتب یار محفوظ است.",
+    footerSystemTitle: "درباره سیستم",
+    footerSystemDescription: "مدیریت هوشمند تقسیم اوقات برای مکاتب، پوهنتون‌ها و مراکز آموزشی.",
+    footerPagesTitle: "صفحات",
+    footerServicesTitle: "درخواست‌ها و خدمات",
+    footerCustomPackage: "پکیج خصوصی بسازید",
+    footerContactWhatsApp: "تماس از طریق واتساپ",
+    footerBuiltBy: "ساخته شده توسط Nexvin",
 
     dashOverview: "نمای عمومی",
     dashWelcome: "خوش آمدید،",
-    dashWelcomeMsg: "سیستم مدیریت تقسیم اوقات شما به طور منظم فعال است. شما دارای",
+    dashWelcomeMsg:
+      "سیستم مدیریت تقسیم اوقات شما به طور منظم فعال است. شما دارای",
     dashActiveClasses: "صنف فعال و",
     dashTeachersAssigned: "استاد ثبت شده دارید.",
     statClassesTitle: "مجموع صنف‌ها",
@@ -777,7 +826,8 @@ export const translations: Record<Language, Translations> = {
     subjectsPageBadge: "مدیریت نصاب درسی",
     subjectsPageTitle: "مضامین",
     subjectsPageTitleHighlight: "درسی",
-    subjectsPageDesc: "تعریف و سازماندهی نصاب درسی مکتب، شامل مضامین اصلی و اختیاری.",
+    subjectsPageDesc:
+      "تعریف و سازماندهی نصاب درسی مکتب، شامل مضامین اصلی و اختیاری.",
     subjectsDeleteAll: "حذف همه",
     subjectsAddNew: "افزودن مضمون",
     subjectsSearchPlaceholder: "جستجوی مضامین بر اساس نام...",
@@ -786,7 +836,8 @@ export const translations: Record<Language, Translations> = {
 
     assignmentsPageTitle: "تخصیص",
     assignmentsPageTitleHighlight: "مضامین به استادان",
-    assignmentsPageDesc: "ارتباط دادن استادان با مضامین درسی و تخصیص آن‌ها به صنف‌های خاص.",
+    assignmentsPageDesc:
+      "ارتباط دادن استادان با مضامین درسی و تخصیص آن‌ها به صنف‌های خاص.",
     assignmentsDeleteAll: "حذف همه تخصیص‌ها",
     assignmentsSearchPlaceholder: "جستجوی کادر علمی...",
     assignmentsEmpty: "کادر علمی یافت نشد",
@@ -799,14 +850,16 @@ export const translations: Record<Language, Translations> = {
     timetablePageBadge: "برنامه‌ریز درسی",
     timetablePageTitle: "تقسیم اوقات",
     timetablePageTitleHighlight: "اصلی",
-    timetablePageDesc: "مشاهده و مدیریت جدول درسی، تخصیص ساعات و اتاق‌های درسی.",
+    timetablePageDesc:
+      "مشاهده و مدیریت جدول درسی، تخصیص ساعات و اتاق‌های درسی.",
     timetableSelectClass: "انتخاب صنف...",
     timetableClassLabel: "صنف",
     menuTeacherTimetable: "تقسیم اوقات استادان",
     teacherTimetablePageBadge: "تقسیم اوقات استادان",
     teacherTimetablePageTitle: "تقسیم اوقات",
     teacherTimetablePageTitleHighlight: "استادان",
-    teacherTimetablePageDesc: "برنامه هفتگی هر استاد و صنفی را که در هر ساعت تدریس می‌کند مشاهده کنید.",
+    teacherTimetablePageDesc:
+      "برنامه هفتگی هر استاد و صنفی را که در هر ساعت تدریس می‌کند مشاهده کنید.",
     teacherTimetableLabel: "استاد",
     teacherTimetableSelect: "انتخاب استاد...",
     teacherTimetableExport: "خروجی",
@@ -823,7 +876,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Add Class
     modalAddClassTitle: "ایجاد صنف درسی",
-    modalAddClassDesc: "یک گروه دانش‌آموزی جدید برای زمان‌بندی و مدیریت تعریف کنید.",
+    modalAddClassDesc:
+      "یک گروه دانش‌آموزی جدید برای زمان‌بندی و مدیریت تعریف کنید.",
     modalAddClassLabel: "نام / شناسه صنف",
     modalAddClassPlaceholder: "مثلاً: صنف ۱۱-ب (علوم)",
     modalAddClassSubmit: "ایجاد صنف",
@@ -833,7 +887,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Add Subject
     modalAddSubjectTitle: "افزودن مضمون جدید",
-    modalAddSubjectDesc: "یک مضمون جدید ایجاد کنید و اعضای کادر علمی را تخصیص دهید.",
+    modalAddSubjectDesc:
+      "یک مضمون جدید ایجاد کنید و اعضای کادر علمی را تخصیص دهید.",
     modalAddSubjectLabel: "نام مضمون",
     modalAddSubjectPlaceholder: "مثلاً: ریاضیات پیشرفته",
     modalAddSubjectSubmit: "ایجاد مضمون",
@@ -843,7 +898,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Assign Subject to Teacher
     modalAssignSubjectTitle: "تخصیص مضمون به استاد",
-    modalAssignSubjectDesc: "یک عضو کادر علمی را به یک مضمون درسی خاص مرتبط کنید.",
+    modalAssignSubjectDesc:
+      "یک عضو کادر علمی را به یک مضمون درسی خاص مرتبط کنید.",
     modalAssignSubjectTeacherLabel: "انتخاب استاد",
     modalAssignSubjectTeacherPlaceholder: "یک استاد انتخاب کنید...",
     modalAssignSubjectSubjectLabel: "انتخاب مضمون",
@@ -857,7 +913,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Assign Teacher to Class
     modalAssignClassTitle: "تخصیص استاد به صنف",
-    modalAssignClassDesc: "یک عضو کادر علمی و مضمون آن‌ها را به گروه‌های دانش‌آموزی مرتبط کنید.",
+    modalAssignClassDesc:
+      "یک عضو کادر علمی و مضمون آن‌ها را به گروه‌های دانش‌آموزی مرتبط کنید.",
     modalAssignClassTeacherLabel: "عضو کادر علمی",
     modalAssignClassTeacherPlaceholder: "انتخاب استاد",
     modalAssignClassSubjectLabel: "مضمون",
@@ -868,7 +925,8 @@ export const translations: Record<Language, Translations> = {
     modalAssignClassSubmitting: "در حال تخصیص...",
     modalAssignClassSuccess: "استاد با موفقیت به صنف‌ها تخصیص یافت",
     modalAssignClassError: "خطا در تخصیص استاد به صنف‌ها",
-    modalAssignClassValidation: "لطفاً یک استاد، یک مضمون و حداقل یک صنف انتخاب کنید",
+    modalAssignClassValidation:
+      "لطفاً یک استاد، یک مضمون و حداقل یک صنف انتخاب کنید",
 
     // Modals – General (Edit)
     modalEditUpdateLabel: "به‌روزرسانی اطلاعات",
@@ -894,7 +952,8 @@ export const translations: Record<Language, Translations> = {
 
     // Confirmation modals
     confirmDeleteTeacherTitle: "حذف استاد",
-    confirmDeleteTeacherDesc: "آیا مطمئن هستید که می‌خواهید همه استادان را حذف کنید؟",
+    confirmDeleteTeacherDesc:
+      "آیا مطمئن هستید که می‌خواهید همه استادان را حذف کنید؟",
     confirmDeleteTeacherSingleSuccess: "استاد با موفقیت حذف شد",
     confirmDeleteTeacherSingleError: "خطا در حذف استاد",
     confirmDeleteAllTeachersSuccess: "همه استادان با موفقیت حذف شدند",
@@ -902,13 +961,15 @@ export const translations: Record<Language, Translations> = {
     confirmDeleteClassSingleSuccess: "صنف با موفقیت حذف شد",
     confirmDeleteClassSingleError: "خطا در حذف صنف",
     confirmDeleteAllClassesTitle: "حذف همه صنف‌ها",
-    confirmDeleteAllClassesDesc: "آیا مطمئن هستید که می‌خواهید همه صنف‌ها را حذف کنید؟",
+    confirmDeleteAllClassesDesc:
+      "آیا مطمئن هستید که می‌خواهید همه صنف‌ها را حذف کنید؟",
     confirmDeleteAllClassesSuccess: "همه صنف‌ها با موفقیت حذف شدند",
     confirmDeleteAllClassesError: "خطا در حذف صنف‌ها",
     confirmDeleteSubjectSingleSuccess: "مضمون با موفقیت حذف شد",
     confirmDeleteSubjectSingleError: "خطا در حذف مضمون",
     confirmDeleteAllSubjectsTitle: "حذف همه مضمون‌ها",
-    confirmDeleteAllSubjectsDesc: "آیا مطمئن هستید که می‌خواهید همه مضمون‌ها را حذف کنید؟ این عمل قابل بازگشت نیست.",
+    confirmDeleteAllSubjectsDesc:
+      "آیا مطمئن هستید که می‌خواهید همه مضمون‌ها را حذف کنید؟ این عمل قابل بازگشت نیست.",
     confirmDeleteAllSubjectsSuccess: "همه مضمون‌ها با موفقیت حذف شدند",
     confirmDeleteAllSubjectsError: "خطا در حذف همه مضمون‌ها",
     confirmDeleteText: "حذف همه",
@@ -988,7 +1049,8 @@ export const translations: Record<Language, Translations> = {
     feat2Title: "د استادانو د درسي ساعتونو تنظیم",
     feat2Desc: "د هر استاد لپاره د درسي ساعتونو اود رخصتیو ورځو منظم تنظیم.",
     feat3Title: "PDF او Excel ډاونلوډ",
-    feat3Desc: "د تقسيم اوقات مستقیم چاپ او په اکسل او پی ډی ایف کې ترلاسه کول.",
+    feat3Desc:
+      "د تقسيم اوقات مستقیم چاپ او په اکسل او پی ډی ایف کې ترلاسه کول.",
 
     modalTitle: "د پکېج فرمایش ثبتول",
     modalSub: "د خپل درسي پکېج د فعالولو لپاره د خپل ښوونځي معلومات داخل کړئ.",
@@ -1005,7 +1067,8 @@ export const translations: Record<Language, Translations> = {
     modalGuarantee: "د حساب ژر تر ژره فعالولو تضمین",
     modalSuccessTitle: "ستاسو فرمایش ثبت شو!",
     modalSuccessSub: "مننه له ستاسو فرمایش څخه.",
-    modalSuccessMsg: "زموږ همکاران به ډېر ژر د واټساپ یا اړیکې لارې له تاسو سره اړیکه ونیسي.",
+    modalSuccessMsg:
+      "زموږ همکاران به ډېر ژر د واټساپ یا اړیکې لارې له تاسو سره اړیکه ونیسي.",
     modalDoneBtn: "تړل او بیرته تلل",
 
     loginAuthBadge: "ننوتل",
@@ -1026,10 +1089,18 @@ export const translations: Record<Language, Translations> = {
     footerTitle: "مکتب یار",
     footerSub: "د درسي تقسیم اوقات هوشمند مدیریت سیستم",
     footerRights: "ټول حقونه له مکتب یار سره خوندي دي.",
+    footerSystemTitle: "د سیستم په اړه",
+    footerSystemDescription: "د ښوونځیو، پوهنتونونو او ښوونیزو مرکزونو لپاره د تقسیم اوقات هوښیار مدیریت.",
+    footerPagesTitle: "پاڼې",
+    footerServicesTitle: "غوښتنې او خدمتونه",
+    footerCustomPackage: "خپل ځانګړی پکېج جوړ کړئ",
+    footerContactWhatsApp: "په واټساپ کې اړیکه ونیسئ",
+    footerBuiltBy: "د Nexvin لخوا جوړ شوی",
 
     dashOverview: "عمومي لید",
     dashWelcome: "ښه راغلاست،",
-    dashWelcomeMsg: "ستاسو د تقسیم اوقات مدیریت سیستم په منظم ډول فعال دی. تاسو",
+    dashWelcomeMsg:
+      "ستاسو د تقسیم اوقات مدیریت سیستم په منظم ډول فعال دی. تاسو",
     dashActiveClasses: "فعال ټولګي او",
     dashTeachersAssigned: "استادان ثبت شوي لرئ.",
     statClassesTitle: "ټول ټولګي",
@@ -1078,7 +1149,8 @@ export const translations: Record<Language, Translations> = {
     subjectsPageBadge: "د نصاب مدیریت",
     subjectsPageTitle: "درسي",
     subjectsPageTitleHighlight: "مضمونونه",
-    subjectsPageDesc: "د ښوونځي د درسي نصاب، اصلي او اختیاري مضمونونو تعریف او تنظیم.",
+    subjectsPageDesc:
+      "د ښوونځي د درسي نصاب، اصلي او اختیاري مضمونونو تعریف او تنظیم.",
     subjectsDeleteAll: "ټول ړنګول",
     subjectsAddNew: "نوی مضمون زیاتول",
     subjectsSearchPlaceholder: "د نوم له مخې مضمونونه پلټل...",
@@ -1087,11 +1159,13 @@ export const translations: Record<Language, Translations> = {
 
     assignmentsPageTitle: "د درسي",
     assignmentsPageTitleHighlight: "دندو وېشل",
-    assignmentsPageDesc: "استادان د خپلو مضمونونو سره نښلول او د ټولګیو ته یې وېشل.",
+    assignmentsPageDesc:
+      "استادان د خپلو مضمونونو سره نښلول او د ټولګیو ته یې وېشل.",
     assignmentsDeleteAll: "ټولې درسي دندې ړنګول",
     assignmentsSearchPlaceholder: "د علمي کادر لټون...",
     assignmentsEmpty: "علمي کادر ونه موندل شو",
-    assignmentsEmptyDesc: "ستاسو د لټون معیارونو سره سم هیڅ استاد ونه موندل شو.",
+    assignmentsEmptyDesc:
+      "ستاسو د لټون معیارونو سره سم هیڅ استاد ونه موندل شو.",
     assignmentsAddSubject: "مضمون زیاتول",
     assignmentsAssignClass: "ټولګي ته ورکول",
     assignmentsAssignedClasses: "ورکړل شوي ټولګي",
@@ -1107,7 +1181,8 @@ export const translations: Record<Language, Translations> = {
     teacherTimetablePageBadge: "د استادانو مهالویش",
     teacherTimetablePageTitle: "د استادانو",
     teacherTimetablePageTitleHighlight: "تقسیم اوقات",
-    teacherTimetablePageDesc: "د هر استاد او په هره دوره کې د هغه د تدریس ټولګي اوونیز مهالویش وګورئ.",
+    teacherTimetablePageDesc:
+      "د هر استاد او په هره دوره کې د هغه د تدریس ټولګي اوونیز مهالویش وګورئ.",
     teacherTimetableLabel: "استاد",
     teacherTimetableSelect: "استاد وټاکئ...",
     teacherTimetableExport: "صادرول",
@@ -1124,7 +1199,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Add Class
     modalAddClassTitle: "درسي ټولګی جوړول",
-    modalAddClassDesc: "د مهال ویش او مدیریت لپاره نوی د زده‌کونکو ګروپ تعریف کړئ.",
+    modalAddClassDesc:
+      "د مهال ویش او مدیریت لپاره نوی د زده‌کونکو ګروپ تعریف کړئ.",
     modalAddClassLabel: "د ټولګي نوم / پیژندپاڼه",
     modalAddClassPlaceholder: "مثلاً: ۱۱مه ټولګي-ب (ساینس)",
     modalAddClassSubmit: "ټولګی جوړول",
@@ -1144,7 +1220,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Assign Subject to Teacher
     modalAssignSubjectTitle: "استاد ته مضمون ورکول",
-    modalAssignSubjectDesc: "د علمي کادر غړی د یو ځانګړي درسي مضمون سره وصل کړئ.",
+    modalAssignSubjectDesc:
+      "د علمي کادر غړی د یو ځانګړي درسي مضمون سره وصل کړئ.",
     modalAssignSubjectTeacherLabel: "استاد غوره کول",
     modalAssignSubjectTeacherPlaceholder: "استاد غوره کړئ...",
     modalAssignSubjectSubjectLabel: "مضمون غوره کول",
@@ -1158,7 +1235,8 @@ export const translations: Record<Language, Translations> = {
 
     // Modals – Assign Teacher to Class
     modalAssignClassTitle: "ټولګي ته استاد ورکول",
-    modalAssignClassDesc: "د علمي کادر غړی او د هغوی مضمون د زده‌کونکو ګروپونو سره وصل کړئ.",
+    modalAssignClassDesc:
+      "د علمي کادر غړی او د هغوی مضمون د زده‌کونکو ګروپونو سره وصل کړئ.",
     modalAssignClassTeacherLabel: "د علمي کادر غړی",
     modalAssignClassTeacherPlaceholder: "استاد غوره کول",
     modalAssignClassSubjectLabel: "مضمون",
@@ -1169,7 +1247,8 @@ export const translations: Record<Language, Translations> = {
     modalAssignClassSubmitting: "د ورکولو په حال کې...",
     modalAssignClassSuccess: "استاد بریالیتوب سره ټولګیو ته ورکړل شو",
     modalAssignClassError: "د استاد د ټولګیو ته ورکولو کې ستونزه",
-    modalAssignClassValidation: "مهرباني وکړئ استاد، مضمون او لږترلږه یو ټولګی غوره کړئ",
+    modalAssignClassValidation:
+      "مهرباني وکړئ استاد، مضمون او لږترلږه یو ټولګی غوره کړئ",
 
     // Modals – General (Edit)
     modalEditUpdateLabel: "د معلوماتو تازه کول",
@@ -1209,7 +1288,8 @@ export const translations: Record<Language, Translations> = {
     confirmDeleteSubjectSingleSuccess: "مضمون بریالیتوب سره ړنګ شو",
     confirmDeleteSubjectSingleError: "د مضمون د ړنګولو کې ستونزه",
     confirmDeleteAllSubjectsTitle: "ټول مضمونونه ړنګول",
-    confirmDeleteAllSubjectsDesc: "ایا ډاډه یاست چې ټول مضمونونه ړنګول غواړئ؟ دا کار بیرته نه‌شي اخیستل.",
+    confirmDeleteAllSubjectsDesc:
+      "ایا ډاډه یاست چې ټول مضمونونه ړنګول غواړئ؟ دا کار بیرته نه‌شي اخیستل.",
     confirmDeleteAllSubjectsSuccess: "ټول مضمونونه بریالیتوب سره ړنګ شول",
     confirmDeleteAllSubjectsError: "د ټولو مضمونونو د ړنګولو کې ستونزه",
     confirmDeleteText: "ټول ړنګول",

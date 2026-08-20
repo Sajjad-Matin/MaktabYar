@@ -42,7 +42,9 @@ export function MarketingNavbar() {
             alt={t("brandAlt")}
           />
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight text-foreground">{t("brandName")}</span>
+            <span className="text-xl font-bold tracking-tight text-foreground">
+              {t("brandName")}
+            </span>
           </div>
         </Link>
 
@@ -77,11 +79,16 @@ export function MarketingNavbar() {
                   <span>{languageLabels[language]}</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-32 rounded-xl p-1 border-primary/10">
+              <DropdownMenuContent
+                align="end"
+                className="w-32 rounded-xl p-1 border-primary/10"
+              >
                 <DropdownMenuItem
                   onClick={() => setLanguage("en")}
                   className={`rounded-lg cursor-pointer text-xs font-medium ${
-                    language === "en" ? "bg-primary/10 text-primary font-bold" : ""
+                    language === "en"
+                      ? "bg-primary/10 text-primary font-bold"
+                      : ""
                   }`}
                 >
                   English
@@ -89,7 +96,9 @@ export function MarketingNavbar() {
                 <DropdownMenuItem
                   onClick={() => setLanguage("fa")}
                   className={`rounded-lg cursor-pointer text-xs font-medium ${
-                    language === "fa" ? "bg-primary/10 text-primary font-bold" : ""
+                    language === "fa"
+                      ? "bg-primary/10 text-primary font-bold"
+                      : ""
                   }`}
                 >
                   دری (Dari)
@@ -97,7 +106,9 @@ export function MarketingNavbar() {
                 <DropdownMenuItem
                   onClick={() => setLanguage("ps")}
                   className={`rounded-lg cursor-pointer text-xs font-medium ${
-                    language === "ps" ? "bg-primary/10 text-primary font-bold" : ""
+                    language === "ps"
+                      ? "bg-primary/10 text-primary font-bold"
+                      : ""
                   }`}
                 >
                   پښتو (Pashto)
@@ -142,14 +153,27 @@ export function MarketingNavbar() {
           {mounted && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl border border-primary/10">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 rounded-xl border border-primary/10"
+                >
                   <Globe className="h-4 w-4 text-primary" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-32 rounded-xl p-1 border-primary/10">
-                <DropdownMenuItem onClick={() => setLanguage("en")}>English</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage("fa")}>دری</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage("ps")}>پښتو</DropdownMenuItem>
+              <DropdownMenuContent
+                align="end"
+                className="w-32 rounded-xl p-1 border-primary/10"
+              >
+                <DropdownMenuItem onClick={() => setLanguage("en")}>
+                  English
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage("fa")}>
+                  دری
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage("ps")}>
+                  پښتو
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
@@ -173,7 +197,11 @@ export function MarketingNavbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="h-9 w-9 rounded-xl"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </Button>
         </div>
       </div>
@@ -201,9 +229,7 @@ export function MarketingNavbar() {
               </Button>
             </Link>
             <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-              <Button className="w-full rounded-xl">
-                {t("navDashboard")}
-              </Button>
+              <Button className="w-full rounded-xl">{t("navDashboard")}</Button>
             </Link>
           </div>
         </div>

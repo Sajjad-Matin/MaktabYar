@@ -98,12 +98,14 @@ export function AppSidebar() {
       color: "text-slate-500",
     },
     ...(user?.role === "ADMIN"
-      ? [{
-          title: "Admin",
-          url: "/admin",
-          icon: ShieldCheck,
-          color: "text-red-500",
-        }]
+      ? [
+          {
+            title: "Admin",
+            url: "/admin",
+            icon: ShieldCheck,
+            color: "text-red-500",
+          },
+        ]
       : []),
   ];
 
@@ -111,7 +113,10 @@ export function AppSidebar() {
 
   if (!mounted) {
     return (
-      <Sidebar side={sidebarSide} className="border-r border-primary/5 bg-background/40 backdrop-blur-xl">
+      <Sidebar
+        side={sidebarSide}
+        className="border-r border-primary/5 bg-background/40 backdrop-blur-xl"
+      >
         <SidebarHeader className="p-6">
           <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-2xl bg-primary/10" />
@@ -126,7 +131,10 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar side={sidebarSide} className="border-r border-primary/5 bg-background/40 backdrop-blur-xl">
+    <Sidebar
+      side={sidebarSide}
+      className="border-r border-primary/5 bg-background/40 backdrop-blur-xl"
+    >
       <SidebarHeader className="p-6">
         <Link href="/dashboard" className="group flex items-center gap-3">
           <img
@@ -135,7 +143,9 @@ export function AppSidebar() {
             alt={t("brandAlt")}
           />
           <div className="flex flex-col">
-            <span className="text-2xl font-bold tracking-tight text-foreground">{t("brandName")}</span>
+            <span className="text-2xl font-bold tracking-tight text-foreground">
+              {t("brandName")}
+            </span>
           </div>
         </Link>
       </SidebarHeader>
@@ -219,7 +229,9 @@ export function AppSidebar() {
               <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background bg-green-500" />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-bold truncate">{t("adminUser")}</span>
+              <span className="text-sm font-bold truncate">
+                {t("adminUser")}
+              </span>
               <span className="text-[10px] text-muted-foreground truncate">
                 {t("systemAdmin")}
               </span>
