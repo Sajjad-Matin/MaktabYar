@@ -441,7 +441,8 @@ export const translations: Record<Language, Translations> = {
     footerSub: "Conflict-Free Timetable Management System",
     footerRights: "MaktabYar. All rights reserved.",
     footerSystemTitle: "The System",
-    footerSystemDescription: "Smart timetable management for schools, colleges, and universities.",
+    footerSystemDescription:
+      "Smart timetable management for schools, colleges, and universities.",
     footerPagesTitle: "Pages",
     footerServicesTitle: "Requests & Services",
     footerCustomPackage: "Create your own package",
@@ -767,7 +768,8 @@ export const translations: Record<Language, Translations> = {
     footerSub: "سیستم هوشمند مدیریت تقسیم اوقات درسی",
     footerRights: "تمامی حقوق برای مکتب یار محفوظ است.",
     footerSystemTitle: "درباره سیستم",
-    footerSystemDescription: "مدیریت هوشمند تقسیم اوقات برای مکاتب، پوهنتون‌ها و مراکز آموزشی.",
+    footerSystemDescription:
+      "مدیریت هوشمند تقسیم اوقات برای مکاتب، پوهنتون‌ها و مراکز آموزشی.",
     footerPagesTitle: "صفحات",
     footerServicesTitle: "درخواست‌ها و خدمات",
     footerCustomPackage: "پکیج خصوصی بسازید",
@@ -1090,7 +1092,8 @@ export const translations: Record<Language, Translations> = {
     footerSub: "د درسي تقسیم اوقات هوشمند مدیریت سیستم",
     footerRights: "ټول حقونه له مکتب یار سره خوندي دي.",
     footerSystemTitle: "د سیستم په اړه",
-    footerSystemDescription: "د ښوونځیو، پوهنتونونو او ښوونیزو مرکزونو لپاره د تقسیم اوقات هوښیار مدیریت.",
+    footerSystemDescription:
+      "د ښوونځیو، پوهنتونونو او ښوونیزو مرکزونو لپاره د تقسیم اوقات هوښیار مدیریت.",
     footerPagesTitle: "پاڼې",
     footerServicesTitle: "غوښتنې او خدمتونه",
     footerCustomPackage: "خپل ځانګړی پکېج جوړ کړئ",

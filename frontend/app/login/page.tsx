@@ -156,7 +156,6 @@ function LoginContent() {
                 {t("loginSub")}
               </CardDescription>
             </div>
-
           </CardHeader>
 
           <CardContent className="space-y-4">
@@ -231,7 +230,6 @@ function LoginContent() {
                 )}
               </Button>
             </form>
-
           </CardContent>
 
           <CardFooter className="bg-primary/5 p-4 border-t border-primary/10 flex items-center justify-between text-xs text-muted-foreground">
