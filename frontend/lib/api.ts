@@ -1,10 +1,16 @@
-const API_BASE =
+const API_BASE = (
+  process.env.NEXT_PUBLIC_API_URL ||
   process.env.NEXT_PUBLIC_BACKEND_API
+)?.replace(/\/$/, "")
 
 export async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T> {
+  if (!API_BASE) {
+    throw new Error("Frontend API URL is not configured.");
+  }
+
   const headers = new Headers(options.headers);
 
   if (!headers.has("Content-Type") && options.body) {

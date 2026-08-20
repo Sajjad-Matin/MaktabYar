@@ -62,7 +62,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (email: string, password: string) => {
-    const API_BASE = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'http://localhost:5000/api';
+    const API_BASE = (process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_API)?.replace(/\/$/, '');
+    if (!API_BASE) throw new Error('Frontend API URL is not configured.');
     
     const response = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
@@ -90,7 +91,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const register = async (email: string, password: string, name: string, phone?: string) => {
-    const API_BASE = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'http://localhost:5000/api';
+    const API_BASE = (process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_API)?.replace(/\/$/, '');
+    if (!API_BASE) throw new Error('Frontend API URL is not configured.');
     
     const response = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
@@ -121,7 +123,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const storedToken = localStorage.getItem("token");
     if (!storedToken) return;
 
-    const API_BASE = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "http://localhost:5000/api";
+    const API_BASE = (process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_API)?.replace(/\/$/, "");
+    if (!API_BASE) throw new Error("Frontend API URL is not configured.");
     const response = await fetch(`${API_BASE}/auth/me`, {
       headers: { Authorization: `Bearer ${storedToken}` },
       cache: "no-store",
